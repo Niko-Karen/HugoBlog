@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>🛩️蓝色空间号 on ニコのブログ</title>
+    <link>https://hugo.nikoblog.top/categories/%EF%B8%8F%E8%93%9D%E8%89%B2%E7%A9%BA%E9%97%B4%E5%8F%B7/</link>
+    <description>Recent content in 🛩️蓝色空间号 on ニコのブログ</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 19 Jan 2022 11:11:48 +0000</lastBuildDate><atom:link href="https://hugo.nikoblog.top/categories/%EF%B8%8F%E8%93%9D%E8%89%B2%E7%A9%BA%E9%97%B4%E5%8F%B7/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>2021·总结</title>
+      <link>https://hugo.nikoblog.top/post/2021%E6%80%BB%E7%BB%93/</link>
+      <pubDate>Wed, 19 Jan 2022 11:11:48 +0000</pubDate>
+      
+      <guid>https://hugo.nikoblog.top/post/2021%E6%80%BB%E7%BB%93/</guid>
+      <description>{% tip sync%} 这篇年度总结迟到了1月19天，也许有些目标已经忘记了，想起来就会持续更新。 {% endtip %}
+回顾 2021 🐂 2021这一年各个行业都不平凡，科技界有华为出鸿蒙2.0、OpenEuler系统，医学界有中国全面第二针甚至是第三针，而我在这一年也有许多改变和进步。
+一是我学习较以前更 {% inlineimage https://cdn.jsdelivr.net/gh/volantis-x/cdn-emoji/aru-l/0000.gif %} 刻苦了，{% psw 虽然说语文依旧很烂。 %}二是我的Code水平得到了有效提高，大部分原因还是我啃了好几本砖头书，如：《操作系统概念精要》、《编译原理》、《Tensorflow AI 》等 blabla的书📚
+最重要的是 (至少我是那么认为的)，本博客其实2021瘫了半年，记得是最后一次部署时Hexo报错：[No layout: index.html] 当时没看到，到学校上信息课时，一上博客，一片白，把我吓蒙了。然后没时间管，就渐渐忘了，很多博文没写。
+到了寒假，我就自由了，赶紧换个主题上线，就像现在这样，好看不？
+{%link 博客公告, /article/744616242/, /img/favicon.png%}
+最近疯狂刷博客，看看那Commits，2022才刚开始就三百多。 {% ghcard Niko-Karen, theme=algolia %}
+展望 2022 🐅 对于我这种小学生，最重要莫过于我人生中的第一场、也是一生一次的大考 —— 小升初。 也许我不能说那么哲学，但还是要说：{% span blue,小升初即是童年旅程的终点站。%}
+算了，不要那么抒情啦。进入正题。
+{% timeline 2022 将要发生的重大事迹, orange %}
+黄冈中学密考，好像是五月多。 目前已考上{% span cyan,广大附中%}……的分校，好像很……LAN
+{% emp 计算机二级%} Python 语言程序设计考试! 证明自己实力的时刻！ 加油！
+入初中，不知能进那所初中呢？
+嘿嘿，没想到吧，这天我生日。 我只要提早3天生出来就可以上初中了。可恶(〃＞目＜)。
+{% endtimeline %}</description>
+    </item>
+    
+    <item>
+      <title>博客公告</title>
+      <link>https://hugo.nikoblog.top/post/%E5%8D%9A%E5%AE%A2%E5%85%AC%E5%91%8A/</link>
+      <pubDate>Sun, 02 Jan 2022 19:43:28 +0000</pubDate>
+      
+      <guid>https://hugo.nikoblog.top/post/%E5%8D%9A%E5%AE%A2%E5%85%AC%E5%91%8A/</guid>
+      <description>Updated Blog at 2022/01/24 14:56 终于发现了以前博客为什么加载那么慢了，原来是圆角！ 文章的透明效果也是因为以前没认真看教程，以为会遮挡背景(本博客是根据Akilar的“每页都使用不同的自定义的背景”方案)。现在好了。
+本次更新主要优化了性能、美化了界面，也更新了我的大脑。“我以后再也不美化啦！” 图片？想多了。现在你们看到的不就是吗？反正我以后不会改了……
+Updated Blog at 2022/1/14 21:41 本次更新更换了网站主题，由Next转为Butterfly {% btn &amp;lsquo;https://gitee.com/immyw/hexo-theme-butterfly&#39;,Butterfly主题Gitee地址,far fa-hand-point-right,blue larger,outline %}
+更新日志  优化博客访问速度，减少插件使用，尽量轻度搭建。 添加Live2d-Widget升级互动版看板娘(不是插件!)，美化一下嘛~  添加吸底Aplayer音乐播放器，歌单为网易云歌单 &amp;lsquo;清华自习室 / 学习处方&amp;rsquo; ，持续跟进。   添加双评论系统,Gitalk和Twikoo  添加在线聊天系统{%label TiDio blue%}，恶搞翻译。  各个页面展示 欢迎来到我的博客 {% btn &amp;lsquo;https://niko-karen.gtihub.io&amp;rsquo;,我的博客,far fa-hand-point-right,orange larger,outline %}</description>
+    </item>
+    
+    <item>
+      <title>思</title>
+      <link>https://hugo.nikoblog.top/post/%E6%80%9D/</link>
+      <pubDate>Fri, 12 Nov 2021 18:09:42 +0000</pubDate>
+      
+      <guid>https://hugo.nikoblog.top/post/%E6%80%9D/</guid>
+      <description>&lt;h2 id=&#34;1前言&#34;&gt;1.前言&lt;/h2&gt;
+&lt;p&gt;​	今天我放学回家时看到了许多令我个人感受良深的事物&lt;/p&gt;
+&lt;p&gt;​	可能因为我是个男生，许多人认为我不在意这些花花草草，实际上我表面上是这样，但&amp;hellip;&amp;hellip;&lt;/p&gt;
+&lt;p&gt;​	我很关心那些可怜的事物。&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

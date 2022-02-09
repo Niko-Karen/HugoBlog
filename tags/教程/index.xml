@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>📁教程 on ニコのブログ</title>
+    <link>https://hugo.nikoblog.top/tags/%E6%95%99%E7%A8%8B/</link>
+    <description>Recent content in 📁教程 on ニコのブログ</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 19 Jan 2022 19:55:32 +0000</lastBuildDate><atom:link href="https://hugo.nikoblog.top/tags/%E6%95%99%E7%A8%8B/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Vercel-加速个人博客</title>
+      <link>https://hugo.nikoblog.top/post/vercel-%E5%8A%A0%E9%80%9F%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/</link>
+      <pubDate>Wed, 19 Jan 2022 19:55:32 +0000</pubDate>
+      
+      <guid>https://hugo.nikoblog.top/post/vercel-%E5%8A%A0%E9%80%9F%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/</guid>
+      <description>现在有不少人的博客网站都是白嫖 Github Pages等免费静态文件部署站的吧，我也不例外。但免费的东西总有不足之处，例如链接太长啦、加载太慢啦、CDN流量没啦等等。在以前配置Twikoo时就发现了一个还算良心的加速平台 —— Vercel
+登录/注册 大概是这样，选择自己的注册方式进去注册，但有个大坑等着你跳…… 我第一次注册的时候报了个错，就是下面这个。 Error:This user account is blocked. Contact support@vercel.com for more information.
+就是这个，整的我心态崩溃，其实解决很简单，你只需要按他要求发个邮件给他就行，就这么简单粗暴，我也是这么解决的，还多了一个外交机会，感兴趣的可以看我与可能跟我隔了大半个地球的人类对话
+创建仓库 登陆后，大概会自动进入Dashboard(即仪表板)，然后点击New Project,然后会看到这样： 我是登陆好的，一般应该是要先登录Github账号后同步才会这样。 到了这个界面后，点击进入下面的Import Third-Party Git Repository,输入自己博客静态文件的Github地址。
+如果还没部署到Github上，就先随便点个仓库，先创建了先。
+搞定这些后，会进入这样的页面： 注意，my-repository填的是将创建的仓库名，但这也是部署后的域名的一部分，能短就短，更何况填了就不能改了，慎填。
+整完这些后，Vercel会自动Clone源仓库的东东到你设的my-repository，可以在下面查看进度，等一小会……
+Over! 搞定后，Vercel会给你重定向，放烟花，可喜庆了。 点击中间的Domains下面的链接，那就是你的加速博客！
+补充 设定自定义域名 谁都不想用这不自由的又臭又长的地址，所以我命由我不由天。点击菜单栏的Settings，找到 Domains，点击默认域名右边的Edit按钮，自己改。
+更新网页 当你又对网页进行更改了咋办？No Problem。我们只需点到菜单栏的Deployments，点第一个列表Item右边的那三个点，像这样。 点击后出来一个框，点Promote to Production，弹出个确认框，确认完事。</description>
+    </item>
+    
+  </channel>
+</rss>

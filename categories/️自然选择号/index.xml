@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>✈️自然选择号 on ニコのブログ</title>
+    <link>https://hugo.nikoblog.top/categories/%EF%B8%8F%E8%87%AA%E7%84%B6%E9%80%89%E6%8B%A9%E5%8F%B7/</link>
+    <description>Recent content in ✈️自然选择号 on ニコのブログ</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 21 Jan 2022 13:36:39 +0000</lastBuildDate><atom:link href="https://hugo.nikoblog.top/categories/%EF%B8%8F%E8%87%AA%E7%84%B6%E9%80%89%E6%8B%A9%E5%8F%B7/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>让终端更优雅—— Windows Terminal美化</title>
+      <link>https://hugo.nikoblog.top/post/%E8%AE%A9%E7%BB%88%E7%AB%AF%E6%9B%B4%E4%BC%98%E9%9B%85-windows-terminal%E7%BE%8E%E5%8C%96/</link>
+      <pubDate>Fri, 21 Jan 2022 13:36:39 +0000</pubDate>
+      
+      <guid>https://hugo.nikoblog.top/post/%E8%AE%A9%E7%BB%88%E7%AB%AF%E6%9B%B4%E4%BC%98%E9%9B%85-windows-terminal%E7%BE%8E%E5%8C%96/</guid>
+      <description>{% folding 站长的碎碎念 %} 这就是默认的命令提示符，这还是我美化过的，cmd的潜质就只能被挖掘到这了。{% del 每天看这个我会吐的🤮 %} 我们不能就苟居于此。看到微软的Build 2019 大会的了吗，Windows Terminal，我一看，好东西，立马看文档配置，学成以后，便有此文。 {% endfolding %}
+安装 打开Microsoft Store，搜索Windows Terminal，直接安装即可。 还有个预览版，不知有什么差别，可以尝试。大概也差不了太多。 美化 基础 打开安装好的Windows Terminal，大概是这样: 很简单，我就只是加了个壁纸，调了一下不透明度，换了个字体，就完了。 你只需点那个向下的箭头，在下拉菜单里点击设置，在新建的窗口的下面点击你想设置的终端，如常用的Powershell和CMD，再找到外观,如下。</description>
+    </item>
+    
+    <item>
+      <title>说说Linux</title>
+      <link>https://hugo.nikoblog.top/post/%E8%AF%B4%E8%AF%B4linux/</link>
+      <pubDate>Tue, 18 Jan 2022 11:17:51 +0000</pubDate>
+      
+      <guid>https://hugo.nikoblog.top/post/%E8%AF%B4%E8%AF%B4linux/</guid>
+      <description>{% note red &amp;lsquo;fas fa-exclamation-triangle&amp;rsquo; %} 本文会有很多主观意识的{% del 暴力语言 %}，如有不适，请吐槽，本人尽快更改。 {% endnote %}
+我用Linux也有很长时间了，有近三年了。在我9岁的时候，我第一次接触电脑就是用Ubuntu 18.04 LTS，当时图形界面已经很好看了，以至于现在我家的那台古董电脑还运行着Lubuntu 18.04 LTS (Ubuntu的分支版，LXDE桌面)。
+个人Linux使用史 { 主观 } 2018 那时我正在上网查资料，觉得Win7很丑、跟不上时代了，就想换个系统。当时在我们普通人眼中，只有一种系统:Windows，所以当时一搜 &amp;ldquo;重装系统&amp;rdquo; 就满屏是Windows的重装教程(我还不会自己重装)。
+我特无奈:&amp;ldquo;我的电脑装Win7已经有些撑不住了，还能来个Win8.1 ?Win10 ?&amp;ldquo;所以我再搜:&amp;ldquo;除Windows外的开源系统&amp;rdquo;，就出来个Linux,Unix。 &amp;ldquo;甚么是Linux? 甚么是Unix&amp;rdquo; 带着疑问，就尝试学习装了个最简单的Ubuntu。{% psw 差点就装上了Arch，装成了我估计要成仙。😅%}
+2019 自从我发现Linux这个大宝藏，就沉迷于此不可自拔，不停换系统:Ubuntu,Debian,Fedora,Centos&amp;hellip;&amp;hellip;甚至Arch都装上了。但有个大毛病，就是我装上后总嫌不好看，不停美化，把系统速度拉低又拉低，但好处既是我的命令行越来越熟，越来越快。
+2020 到了这个阶段，我可以自建Git服务器、博客服务器，运用git等工具&amp;hellip;&amp;hellip;巴拉巴拉很多技能都学习到了。其中激励我的大概都是我对计算机的热爱和痴迷，有了这些我才能步步高升，登上计算机的殿堂。
+Linux 发展史 { 客观 } 我对以前的Linux版本不熟，我主要了解的是内核版本4.5+至5.0+，平时使用的，也就这几个，曾经也自己编译内核自制小系统，叫{% label SimLinux orange %}，意思就是简单的Linux，功能也简单。就只有个Bash。
+{% note purple &amp;lsquo;fab fa-linux&amp;rsquo; simple %} 本人要不下次写个{%label 自己编译、制作Linux发行版教程 blue%}? 大家众议。 {% endnote %}
+跑题了，回到正题。
+2018 2018年的Linux已经非常不错了，当时的图形界面(除了图标)和现在竟没啥大变化。 {% psw 如果你美化了当我没说。 %}</description>
+    </item>
+    
+    <item>
+      <title>Windows11 美化&#43;优化教程</title>
+      <link>https://hugo.nikoblog.top/post/windows11-%E7%BE%8E%E5%8C%96-%E4%BC%98%E5%8C%96%E6%95%99%E7%A8%8B/</link>
+      <pubDate>Mon, 17 Jan 2022 10:14:30 +0000</pubDate>
+      
+      <guid>https://hugo.nikoblog.top/post/windows11-%E7%BE%8E%E5%8C%96-%E4%BC%98%E5%8C%96%E6%95%99%E7%A8%8B/</guid>
+      <description>跟微软的姻缘 事情回到两年前，那时我刚放暑假，如疯狗般把作业写完后，百无聊赖，就打开电脑玩。 上网看了看新闻后，感觉有点无趣: 上哪个网站都要登录，没账号、没邮箱寸步难行啊！
+就去注册个邮箱吧！心里想着。到处找地址，搜百度。但几乎没有哪个邮箱注册是不需要手机号的，而我就缺这玩意！ 咋办？接着找呗。最后，我找了Outlook，不用手机号！真香！
+就这样，跟微软扯上关系了呗(谁叫Gmail需要翻墙的&amp;hellip;&amp;hellip;那时我还不知道VPN是什么 😑)
+回到正题 不扯那么远。回到咱们主题: {% label Windows11美化+优化教程 purple%}
+注意，是Windows 11。禁止Windows 10仿Win11入内！
+ 先给大家展示下我桌面哈 透明化任务栏 目前Windows虽然支持透明化，但还不够，还是太模糊了。我们要完美，完美！{来自处女座的咆哮}
+{% tabs 透明化方法,2 %}
+死磕在Windows设置里  打开设置 -&amp;gt; 辅助功能 -&amp;gt; 视觉效果 勾选透明效果，(好像装系统就自动勾了&amp;hellip;) Effect: 任务栏只有50%透明，不推荐  使用软件：TranslucentTB 优点：比另一个重点，但样式多。 缺点：好处说了，太重了。 {% tabs 使用方法 %}
+在应用商店里下载 打开应用商店，搜索TranslucentTB,安装、下载，免费送货上门 上官网下载 提供网址:
+ Github网址 腾讯软件管家  {% endtabs %}
+使用软件：Startisback 官网：{%btn &amp;lsquo;https://startisback.com/&#39;,Startisback,outline%}
+ 下载 Free Trial版，即免费版，足够了。 下载解压后，以管理员身份运行，安装。 打开控制面板 将右上角的【查看方式】修改为【大图标】，在下面点击【开始菜单】 点击左侧的【外观】，在右侧勾选【使用自定义任务栏颜色】，然后在右侧将颜色的滑动块移动到最左边，点击应用 — 确定 打开任务管理器 重启任务管理器  All Done!</description>
+    </item>
+    
+  </channel>
+</rss>

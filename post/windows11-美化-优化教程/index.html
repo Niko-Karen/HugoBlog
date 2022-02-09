@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='把自己的Windows搞机经历拿出来'><title>Windows11 美化&#43;优化教程</title>
+
+<link rel='canonical' href='https://hugo.nikoblog.top/post/windows11-%E7%BE%8E%E5%8C%96-%E4%BC%98%E5%8C%96%E6%95%99%E7%A8%8B/'>
+
+<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='Windows11 美化&#43;优化教程'>
+<meta property='og:description' content='把自己的Windows搞机经历拿出来'>
+<meta property='og:url' content='https://hugo.nikoblog.top/post/windows11-%E7%BE%8E%E5%8C%96-%E4%BC%98%E5%8C%96%E6%95%99%E7%A8%8B/'>
+<meta property='og:site_name' content='ニコのブログ'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='🪟Windows 系统' /><meta property='article:published_time' content='2022-01-17T10:14:30&#43;00:00'/><meta property='article:modified_time' content='2022-01-17T10:14:30&#43;00:00'/>
+<meta name="twitter:title" content="Windows11 美化&#43;优化教程">
+<meta name="twitter:description" content="把自己的Windows搞机经历拿出来">
+    </head>
+    <body class="
+    article-page has-toc
+">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex 
+    
+        extended
+    
+">
+    
+        <div id="article-toolbar">
+            <a href="https://hugo.nikoblog.top" class="back-home">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="15 6 9 12 15 18" />
+</svg>
+
+
+
+                <span>返回</span>
+            </a>
+        </div>
+    
+<main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/%EF%B8%8F%E8%87%AA%E7%84%B6%E9%80%89%E6%8B%A9%E5%8F%B7/" >
+                ✈️自然选择号
+            </a>
+        
+    </header>
+    
+
+    <h2 class="article-title">
+        <a href="/post/windows11-%E7%BE%8E%E5%8C%96-%E4%BC%98%E5%8C%96%E6%95%99%E7%A8%8B/">Windows11 美化&#43;优化教程</a>
+    </h2>
+
+    
+    <h3 class="article-subtitle">
+        把自己的Windows搞机经历拿出来
+    </h3>
+    <footer class="article-time">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+        <time class="article-time--published">Jan 17, 17170</time>
+    </footer></div>
+</header>
+
+    <section class="article-content">
+    <h2 id="跟微软的姻缘">跟微软的姻缘</h2>
+<p>事情回到两年前，那时我刚放暑假，如疯狗般把作业写完后，百无聊赖，就打开电脑玩。
+上网看了看新闻后，感觉有点无趣: 上哪个网站都要登录，没账号、没邮箱寸步难行啊！</p>
+<p>就去注册个邮箱吧！心里想着。到处找地址，搜百度。但几乎没有哪个邮箱注册是不需要手机号的，而我就缺这玩意！
+咋办？接着找呗。最后，我找了<a class="link" href="https://outlook.com"  target="_blank" rel="noopener"
+    >Outlook</a>，不用手机号！真香！</p>
+<p>就这样，跟微软扯上关系了呗(谁叫Gmail需要翻墙的&hellip;&hellip;那时我还不知道VPN是什么 😑)</p>
+<h2 id="回到正题">回到正题</h2>
+<p>不扯那么远。回到咱们主题: {% label Windows11美化+优化教程 purple%}</p>
+<p>注意，是<strong>Windows 11</strong>。禁止Windows 10仿Win11入内！</p>
+<hr>
+<p>先给大家展示下我桌面哈
+<img src="/mydesktop.webp" alt="我的桌面"  /></p>
+<h3 id="透明化任务栏">透明化任务栏</h3>
+<p>目前Windows虽然支持透明化，但还不够，还是太模糊了。我们要完美，完美！{来自处女座的咆哮}</p>
+<p>{% tabs 透明化方法,2 %}</p>
+<!-- raw HTML omitted -->
+<h4 id="死磕在windows设置里">死磕在Windows设置里</h4>
+<ol>
+<li>打开设置 -&gt; 辅助功能 -&gt; 视觉效果</li>
+<li>勾选<strong>透明效果</strong>，(好像装系统就自动勾了&hellip;)
+Effect: 任务栏只有50%透明，<strong>不推荐</strong></li>
+</ol>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<h4 id="使用软件translucenttb">使用软件：TranslucentTB</h4>
+<p>优点：比另一个重点，但样式多。
+缺点：好处说了，太重了。
+{% tabs 使用方法 %}</p>
+<!-- raw HTML omitted -->
+<h5 id="在应用商店里下载">在应用商店里下载</h5>
+<p>打开应用商店，搜索<strong>TranslucentTB</strong>,安装、下载，免费送货上门
+<img src="/store.webp" alt="应用商店(汉化的)"  /></p>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<h5 id="上官网下载">上官网下载</h5>
+<p>提供网址:</p>
+<ol>
+<li><a class="link" href="https://github.com/TranslucentTB/TranslucentTB"  target="_blank" rel="noopener"
+    >Github网址</a></li>
+<li><a class="link" href="https://pc.qq.com/detail/0/detail_24860.html"  target="_blank" rel="noopener"
+    >腾讯软件管家</a></li>
+</ol>
+<!-- raw HTML omitted -->
+<p>{% endtabs %}</p>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<h4 id="使用软件startisback">使用软件：Startisback</h4>
+<p>官网：{%btn &lsquo;<a class="link" href="https://startisback.com/%27,Startisback,outline%25%7d"  target="_blank" rel="noopener"
+    >https://startisback.com/',Startisback,outline%}</a></p>
+<ol>
+<li>下载 <strong>Free Trial</strong>版，即免费版，足够了。</li>
+<li>下载解压后，以<strong>管理员身份运行</strong>，安装。</li>
+<li>打开控制面板</li>
+<li>将右上角的【查看方式】修改为【大图标】，在下面点击【开始菜单】</li>
+<li>点击左侧的【外观】，在右侧勾选【使用自定义任务栏颜色】，然后在右侧将颜色的滑动块移动到最左边，点击应用 — 确定</li>
+<li>打开任务管理器</li>
+<li>重启<strong>任务管理器</strong></li>
+</ol>
+<p>All Done!</p>
+<!-- raw HTML omitted -->
+<p>{% endtabs %}</p>
+<h3 id="dism优化">Dism++优化</h3>
+<p>{% blockquote %}
+美化易上头，一上头就把持不住。尽早跳出坑来，让其他人跳进去。嘻嘻~
+{% endblockquote %}
+{% btn &lsquo;<a class="link" href="https://dl.softmgr.qq.com/original/System/Dism10.1.1001.10.zip%27"  target="_blank" rel="noopener"
+    >https://dl.softmgr.qq.com/original/System/Dism10.1.1001.10.zip'</a>,下载,outline %}</p>
+<p>下载解压后，选择自己系统版本，打开对应的Dism++ EXE，尽自己所能优化，不会别动就行。</p>
+<h3 id="不断探索">不断探索</h3>
+<p>博主能力有限，也就一小学生，也就只能写这些了，有疑问或需求请在评论区提出，本人将加速更新。BiuBiu~</p>
+<p><img src="/learn.webp" alt="晒晒Microsoft Learn账号"  /></p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/windows-%E7%B3%BB%E7%BB%9F/">🪟Windows 系统</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+    
+</article>
+
+    <aside class="related-contents--wrapper">
+    
+    
+        <h2 class="section-title">相关文章</h2>
+        <div class="related-contents">
+            <div class="flex article-list--tile">
+                
+                    
+<article class="">
+    <a href="/post/%E8%AE%A9%E7%BB%88%E7%AB%AF%E6%9B%B4%E4%BC%98%E9%9B%85-windows-terminal%E7%BE%8E%E5%8C%96/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">让终端更优雅—— Windows Terminal美化</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/post/%E8%AF%B4%E8%AF%B4linux/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">说说Linux</h2>
+        </div>
+    </a>
+</article>
+                
+            </div>
+        </div>
+    
+</aside>
+
+     
+     
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "blog-qyoueb0mu4" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (DISQUS) {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy;
+
+        
+        2020 -
+        
+        2022 ニコのブログ
+    </section>
+
+    <section class="powerby">
+        
+        祝你每天开心哦！😙 <br />
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener"
+                data-version="2.4.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css"integrity="sha256-c0uckgykQ9v5k&#43;IqViZOZKc47Jn7KQil4/MP3ySA3F8="crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css"integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE="crossorigin="anonymous"
+            >
+
+            </main>
+    
+        <aside class="sidebar right-sidebar sticky">
+            <section class="widget archives">
+                <div class="widget-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+                </div>
+                <h2 class="widget-title section-title">目录</h2>
+                
+                <div class="widget--toc">
+                    <nav id="TableOfContents">
+  <ol>
+    <li><a href="#跟微软的姻缘">跟微软的姻缘</a></li>
+    <li><a href="#回到正题">回到正题</a>
+      <ol>
+        <li><a href="#透明化任务栏">透明化任务栏</a>
+          <ol>
+            <li><a href="#死磕在windows设置里">死磕在Windows设置里</a></li>
+            <li><a href="#使用软件translucenttb">使用软件：TranslucentTB</a></li>
+            <li><a href="#使用软件startisback">使用软件：Startisback</a></li>
+          </ol>
+        </li>
+        <li><a href="#dism优化">Dism++优化</a></li>
+        <li><a href="#不断探索">不断探索</a></li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+                </div>
+            </section>
+        </aside>
+    
+
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
+                defer="false"
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+<script
+    src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"
+    async
+></script>
+
+<script
+    src="https://cdn.jsdelivr.net/gh/zhixuan2333/gh-blog@v0.1.0/js/nprogress.min.js"
+    integrity="sha384-bHDlAEUFxsRI7JfULv3DTpL2IXbbgn4JHQJibgo5iiXSK6Iu8muwqHANhun74Cqg"
+    crossorigin="anonymous"
+></script>
+<link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/gh/zhixuan2333/gh-blog@v0.1.0/css/nprogress.css"
+    integrity="sha384-KJyhr2syt5+4M9Pz5dipCvTrtvOmLk/olWVdfhAp858UCa64Ia5GFpTN7+G4BWpE"
+    crossorigin="anonymous"
+/>
+<script>
+    NProgress.start();
+    document.addEventListener("readystatechange", () => {
+        if (document.readyState === "interactive") NProgress.inc(0.8);
+        if (document.readyState === "complete") NProgress.done();
+    });
+</script>
+    </body>
+</html>

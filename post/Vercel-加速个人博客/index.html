@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='白嫖Vercel，让你的博客嗖嗖的'><title>Vercel-加速个人博客</title>
+
+<link rel='canonical' href='https://hugo.nikoblog.top/post/vercel-%E5%8A%A0%E9%80%9F%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/'>
+
+<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='Vercel-加速个人博客'>
+<meta property='og:description' content='白嫖Vercel，让你的博客嗖嗖的'>
+<meta property='og:url' content='https://hugo.nikoblog.top/post/vercel-%E5%8A%A0%E9%80%9F%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/'>
+<meta property='og:site_name' content='ニコのブログ'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='📁教程' /><meta property='article:published_time' content='2022-01-19T19:55:32&#43;00:00'/><meta property='article:modified_time' content='2022-01-19T19:55:32&#43;00:00'/>
+<meta name="twitter:title" content="Vercel-加速个人博客">
+<meta name="twitter:description" content="白嫖Vercel，让你的博客嗖嗖的">
+    </head>
+    <body class="
+    article-page has-toc
+">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex 
+    
+        extended
+    
+">
+    
+        <div id="article-toolbar">
+            <a href="https://hugo.nikoblog.top" class="back-home">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="15 6 9 12 15 18" />
+</svg>
+
+
+
+                <span>返回</span>
+            </a>
+        </div>
+    
+<main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/%E9%9D%92%E9%93%9C%E6%97%B6%E4%BB%A3%E5%8F%B7/" >
+                🛸青铜时代号
+            </a>
+        
+    </header>
+    
+
+    <h2 class="article-title">
+        <a href="/post/vercel-%E5%8A%A0%E9%80%9F%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/">Vercel-加速个人博客</a>
+    </h2>
+
+    
+    <h3 class="article-subtitle">
+        白嫖Vercel，让你的博客嗖嗖的
+    </h3>
+    <footer class="article-time">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+        <time class="article-time--published">Jan 19, 19190</time>
+    </footer></div>
+</header>
+
+    <section class="article-content">
+    <p>现在有不少人的博客网站都是白嫖 Github Pages等<code>免费</code>静态文件部署站的吧，我也不例外。但免费的东西总有不足之处，例如链接太长啦、加载太慢啦、CDN流量没啦等等。在以前配置Twikoo时就发现了一个还算良心的加速平台 —— Vercel</p>
+<h2 id="登录注册">登录/注册</h2>
+<p><img src="/post/Vercel-%e5%8a%a0%e9%80%9f%e4%b8%aa%e4%ba%ba%e5%8d%9a%e5%ae%a2/signup.webp" alt="注册页"  /></p>
+<p>大概是这样，选择自己的注册方式进去注册，但有个大坑等着你跳……
+我第一次注册的时候报了个错，就是下面这个。
+<code>Error:This user account is blocked. Contact support@vercel.com for more information.</code></p>
+<p>就是这个，整的我心态崩溃，其实解决很简单，你只需要按他要求发个邮件给他就行，就这么简单粗暴，我也是这么解决的，还多了一个外交机会，感兴趣的可以看我与可能跟我隔了大半个地球的人类对话</p>
+<p><img src="/post/Vercel-%e5%8a%a0%e9%80%9f%e4%b8%aa%e4%ba%ba%e5%8d%9a%e5%ae%a2/com.webp" alt="邮件"  /></p>
+<h2 id="创建仓库">创建仓库</h2>
+<p>登陆后，大概会自动进入Dashboard(即仪表板)，然后点击New Project,然后会看到这样：
+<img src="/post/Vercel-%e5%8a%a0%e9%80%9f%e4%b8%aa%e4%ba%ba%e5%8d%9a%e5%ae%a2/pro.webp" alt="New Project"  /></p>
+<p>我是登陆好的，一般应该是要先登录Github账号后同步才会这样。
+到了这个界面后，点击进入下面的<code>Import Third-Party Git Repository</code>,输入自己博客静态文件的Github地址。</p>
+<p>如果还没部署到Github上，就先随便点个仓库，先创建了先。</p>
+<p>搞定这些后，会进入这样的页面：
+<img src="/post/Vercel-%e5%8a%a0%e9%80%9f%e4%b8%aa%e4%ba%ba%e5%8d%9a%e5%ae%a2/over.webp" alt="创建仓库"  /></p>
+<p>注意，<code>my-repository</code>填的是将创建的仓库名，但这也是部署后的域名的一部分，能短就短，更何况填了就不能改了，慎填。</p>
+<p>整完这些后，Vercel会自动Clone源仓库的东东到你设的<code>my-repository</code>，可以在下面查看进度，等一小会……</p>
+<h2 id="over">Over!</h2>
+<p>搞定后，Vercel会给你重定向，放烟花，可喜庆了。
+<img src="/post/Vercel-%e5%8a%a0%e9%80%9f%e4%b8%aa%e4%ba%ba%e5%8d%9a%e5%ae%a2/done.webp" alt="done"  /></p>
+<p>点击中间的Domains下面的链接，那就是你的加速博客！</p>
+<h2 id="补充">补充</h2>
+<h3 id="设定自定义域名">设定自定义域名</h3>
+<p>谁都不想用这不自由的又臭又长的地址，所以我命由我不由天。点击菜单栏的<code>Settings</code>，找到 <code>Domains</code>，点击默认域名右边的<code>Edit</code>按钮，自己改。</p>
+<h3 id="更新网页">更新网页</h3>
+<p>当你又对网页进行更改了咋办？No Problem。我们只需点到菜单栏的<code>Deployments</code>，点第一个列表Item右边的那三个点，像这样。
+<img src="/post/Vercel-%e5%8a%a0%e9%80%9f%e4%b8%aa%e4%ba%ba%e5%8d%9a%e5%ae%a2/buchong.webp" alt="补充2"  />
+点击后出来一个框，点<code>Promote to Production</code>，弹出个确认框，确认完事。</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/%E6%95%99%E7%A8%8B/">📁教程</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+    
+</article>
+
+    <aside class="related-contents--wrapper">
+    
+    
+        <h2 class="section-title">相关文章</h2>
+        <div class="related-contents">
+            <div class="flex article-list--tile">
+                
+                    
+<article class="">
+    <a href="/post/%E7%BD%91%E6%98%93%E4%BA%91%E9%9F%B3%E4%B9%90%E7%9B%B4%E9%93%BE/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">网易云音乐直链</h2>
+        </div>
+    </a>
+</article>
+                
+            </div>
+        </div>
+    
+</aside>
+
+     
+     
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "blog-qyoueb0mu4" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (DISQUS) {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy;
+
+        
+        2020 -
+        
+        2022 ニコのブログ
+    </section>
+
+    <section class="powerby">
+        
+        祝你每天开心哦！😙 <br />
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener"
+                data-version="2.4.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css"integrity="sha256-c0uckgykQ9v5k&#43;IqViZOZKc47Jn7KQil4/MP3ySA3F8="crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css"integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE="crossorigin="anonymous"
+            >
+
+            </main>
+    
+        <aside class="sidebar right-sidebar sticky">
+            <section class="widget archives">
+                <div class="widget-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+                </div>
+                <h2 class="widget-title section-title">目录</h2>
+                
+                <div class="widget--toc">
+                    <nav id="TableOfContents">
+  <ol>
+    <li><a href="#登录注册">登录/注册</a></li>
+    <li><a href="#创建仓库">创建仓库</a></li>
+    <li><a href="#over">Over!</a></li>
+    <li><a href="#补充">补充</a>
+      <ol>
+        <li><a href="#设定自定义域名">设定自定义域名</a></li>
+        <li><a href="#更新网页">更新网页</a></li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+                </div>
+            </section>
+        </aside>
+    
+
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
+                defer="false"
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+<script
+    src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"
+    async
+></script>
+
+<script
+    src="https://cdn.jsdelivr.net/gh/zhixuan2333/gh-blog@v0.1.0/js/nprogress.min.js"
+    integrity="sha384-bHDlAEUFxsRI7JfULv3DTpL2IXbbgn4JHQJibgo5iiXSK6Iu8muwqHANhun74Cqg"
+    crossorigin="anonymous"
+></script>
+<link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/gh/zhixuan2333/gh-blog@v0.1.0/css/nprogress.css"
+    integrity="sha384-KJyhr2syt5+4M9Pz5dipCvTrtvOmLk/olWVdfhAp858UCa64Ia5GFpTN7+G4BWpE"
+    crossorigin="anonymous"
+/>
+<script>
+    NProgress.start();
+    document.addEventListener("readystatechange", () => {
+        if (document.readyState === "interactive") NProgress.inc(0.8);
+        if (document.readyState === "complete") NProgress.done();
+    });
+</script>
+    </body>
+</html>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>🎵死磕记录 on ニコのブログ</title>
+    <link>https://hugo.nikoblog.top/tags/%E6%AD%BB%E7%A3%95%E8%AE%B0%E5%BD%95/</link>
+    <description>Recent content in 🎵死磕记录 on ニコのブログ</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 29 Jan 2022 09:29:42 +0000</lastBuildDate><atom:link href="https://hugo.nikoblog.top/tags/%E6%AD%BB%E7%A3%95%E8%AE%B0%E5%BD%95/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>升级&#43;优化的网易云歌单下载器</title>
+      <link>https://hugo.nikoblog.top/post/%E5%8D%87%E7%BA%A7-%E4%BC%98%E5%8C%96%E7%9A%84%E7%BD%91%E6%98%93%E4%BA%91%E6%AD%8C%E5%8D%95%E4%B8%8B%E8%BD%BD%E5%99%A8/</link>
+      <pubDate>Sat, 29 Jan 2022 09:29:42 +0000</pubDate>
+      
+      <guid>https://hugo.nikoblog.top/post/%E5%8D%87%E7%BA%A7-%E4%BC%98%E5%8C%96%E7%9A%84%E7%BD%91%E6%98%93%E4%BA%91%E6%AD%8C%E5%8D%95%E4%B8%8B%E8%BD%BD%E5%99%A8/</guid>
+      <description>嘿，大家好，今天复习了一下爬虫知识，自己想爬个网易云的歌单下来，备着以后禁网的时候听。但由于我懒癌晚期，懒得直接上浏览器上搜，搜着，发现没有一个合格的。 为什么？其实是因为那些爬虫是打开浏览器（即Selenium）、打开歌单的网址、把其中的歌曲名和链接拿下、依次用外链下载。 这个方法不好，原因是在网页版的网易云的无登陆状态是只能在歌单里看到十首歌，无法看全。就好比我歌单里有50首歌，而你的爬虫只能爬10首下来，没效果。
+没办法，只能自己写了。就是套了个api嘛。源码如下。
+{% codeblock lang:python %} import requests import json import jsonpath import os
+playlist_id = input(&amp;lsquo;请输入歌单id: &amp;raquo;&amp;gt;&#39;) myjson = requests.get( &amp;lsquo;https://api.injahow.cn/meting/?type=playlist&amp;id={}&#39;.format(playlist_id) ) data = json.loads(myjson.text)
+urls = [] names = [] for i in data: url = jsonpath.jsonpath(i, &amp;lsquo;$..url&amp;rsquo;) name = jsonpath.jsonpath(i, &amp;lsquo;$..name&amp;rsquo;)
+names.append(name[0]) urls.append(url[0])  https://api.injahow.cn/meting/?server=netease&amp;type=url&amp;id=1344088470 print(&amp;lsquo;总共有{}个链接，开始下载……\n&amp;rsquo;.format(len(urls)))
+if not os.path.exists(&amp;rsquo;.\缓存糖果屋\{}\&#39;.format(playlist_id)): os.mkdir(&amp;rsquo;.\缓存糖果屋\{}\&#39;.format(playlist_id))
+num = 0 name_count = 0 for url in urls:
+id = url.split(&#39;&amp;amp;&#39;)[2].split(&#39;&amp;amp;&#39;)[0].split(&#39;=&#39;)[1] with requests.get(url) as resp: with open( &#39;.</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,915 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>ニコのブログ</title>
+        <link>https://hugo.nikoblog.top/</link>
+        <description>Recent content on ニコのブログ</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>en-us</language>
+        <lastBuildDate>Sat, 29 Jan 2022 09:29:42 +0000</lastBuildDate><atom:link href="https://hugo.nikoblog.top/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>升级&#43;优化的网易云歌单下载器</title>
+        <link>https://hugo.nikoblog.top/post/%E5%8D%87%E7%BA%A7-%E4%BC%98%E5%8C%96%E7%9A%84%E7%BD%91%E6%98%93%E4%BA%91%E6%AD%8C%E5%8D%95%E4%B8%8B%E8%BD%BD%E5%99%A8/</link>
+        <pubDate>Sat, 29 Jan 2022 09:29:42 +0000</pubDate>
+        
+        <guid>https://hugo.nikoblog.top/post/%E5%8D%87%E7%BA%A7-%E4%BC%98%E5%8C%96%E7%9A%84%E7%BD%91%E6%98%93%E4%BA%91%E6%AD%8C%E5%8D%95%E4%B8%8B%E8%BD%BD%E5%99%A8/</guid>
+        <description>&lt;p&gt;嘿，大家好，今天复习了一下爬虫知识，自己想爬个网易云的歌单下来，备着以后禁网的时候听。但由于我懒癌晚期，懒得直接上浏览器上搜，搜着，发现没有一个合格的。
+为什么？其实是因为那些爬虫是打开浏览器（即Selenium）、打开歌单的网址、把其中的歌曲名和链接拿下、依次用外链下载。
+这个方法不好，原因是在网页版的网易云的&lt;strong&gt;无登陆状态&lt;/strong&gt;是只能在歌单里看到十首歌，无法看全。就好比我歌单里有50首歌，而你的爬虫只能爬10首下来，没效果。&lt;/p&gt;
+&lt;p&gt;没办法，只能自己写了。&lt;!-- raw HTML omitted --&gt;就是套了个api嘛。&lt;!-- raw HTML omitted --&gt;源码如下。&lt;/p&gt;
+&lt;p&gt;{% codeblock lang:python %}
+import requests
+import json
+import jsonpath
+import os&lt;/p&gt;
+&lt;p&gt;playlist_id = input(&amp;lsquo;请输入歌单id: &amp;raquo;&amp;gt;&#39;)
+myjson = requests.get(
+&amp;lsquo;&lt;a class=&#34;link&#34; href=&#34;https://api.injahow.cn/meting/?type=playlist&amp;amp;id=%7b%7d%27.format%28playlist_id%29&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://api.injahow.cn/meting/?type=playlist&amp;id={}&#39;.format(playlist_id)&lt;/a&gt;
+)
+data = json.loads(myjson.text)&lt;/p&gt;
+&lt;p&gt;urls = []
+names = []
+for i in data:
+url = jsonpath.jsonpath(i, &amp;lsquo;$..url&amp;rsquo;)
+name = jsonpath.jsonpath(i, &amp;lsquo;$..name&amp;rsquo;)&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;names.append(name[0])
+urls.append(url[0])
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h1 id=&#34;httpsapiinjahowcnmetingserverneteasetypeurlid1344088470&#34;&gt;&lt;a class=&#34;link&#34; href=&#34;https://api.injahow.cn/meting/?server=netease&amp;amp;type=url&amp;amp;id=1344088470&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://api.injahow.cn/meting/?server=netease&amp;type=url&amp;id=1344088470&lt;/a&gt;&lt;/h1&gt;
+&lt;p&gt;print(&amp;lsquo;总共有{}个链接，开始下载……\n&amp;rsquo;.format(len(urls)))&lt;/p&gt;
+&lt;p&gt;if not os.path.exists(&amp;rsquo;.\缓存糖果屋\{}\&#39;.format(playlist_id)):
+os.mkdir(&amp;rsquo;.\缓存糖果屋\{}\&#39;.format(playlist_id))&lt;/p&gt;
+&lt;p&gt;num = 0
+name_count = 0
+for url in urls:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;id = url.split(&#39;&amp;amp;&#39;)[2].split(&#39;&amp;amp;&#39;)[0].split(&#39;=&#39;)[1]
+with requests.get(url) as resp:
+    with open(
+        &#39;.\\缓存糖果屋\\{}\\&#39;.format(playlist_id) + id + &#39;.mp3&#39;,
+        mode=&#39;wb&#39;,
+    ) as f:
+        f.write(resp.content)
+        num += 1
+        print(&#39;完成{}个,即为&#39;.format(num) + names[name_count])
+        name_count += 1
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;print(&#39;\nALL DONE!&#39;)&lt;/p&gt;
+&lt;p&gt;{% endcodeblock %}&lt;/p&gt;
+&lt;p&gt;还有进度条版的:
+{% codeblock lang:python %}
+import requests
+import json
+import jsonpath
+import os
+from tqdm import tqdm&lt;/p&gt;
+&lt;p&gt;playlist_id = input(&amp;lsquo;请输入歌单id: &amp;raquo;&amp;gt;&#39;)
+myjson = requests.get(
+&amp;lsquo;&lt;a class=&#34;link&#34; href=&#34;https://api.injahow.cn/meting/?type=playlist&amp;amp;id=%7b%7d%27.format%28playlist_id%29&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://api.injahow.cn/meting/?type=playlist&amp;id={}&#39;.format(playlist_id)&lt;/a&gt;
+)
+data = json.loads(myjson.text)&lt;/p&gt;
+&lt;p&gt;urls = []
+names = []
+for i in data:
+url = jsonpath.jsonpath(i, &amp;lsquo;$..url&amp;rsquo;)
+name = jsonpath.jsonpath(i, &amp;lsquo;$..name&amp;rsquo;)&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;names.append(name[0])
+urls.append(url[0])
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h1 id=&#34;httpsapiinjahowcnmetingserverneteasetypeurlid1344088470-1&#34;&gt;&lt;a class=&#34;link&#34; href=&#34;https://api.injahow.cn/meting/?server=netease&amp;amp;type=url&amp;amp;id=1344088470&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://api.injahow.cn/meting/?server=netease&amp;type=url&amp;id=1344088470&lt;/a&gt;&lt;/h1&gt;
+&lt;p&gt;print(&amp;lsquo;总共有{}个链接，开始下载……\n&amp;rsquo;.format(len(urls)))&lt;/p&gt;
+&lt;p&gt;if not os.path.exists(&amp;rsquo;.\缓存糖果屋\{}\&#39;.format(playlist_id)):
+os.mkdir(&amp;rsquo;.\缓存糖果屋\{}\&#39;.format(playlist_id))&lt;/p&gt;
+&lt;p&gt;for url in tqdm(urls, desc=&amp;lsquo;下载中&amp;rsquo;):&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;id = url.split(&#39;&amp;amp;&#39;)[2].split(&#39;&amp;amp;&#39;)[0].split(&#39;=&#39;)[1]
+with requests.get(url) as resp:
+    with open(
+        &#39;.\\缓存糖果屋\\{}\\&#39;.format(playlist_id) + id + &#39;.mp3&#39;,
+        mode=&#39;wb&#39;,
+    ) as f:
+        f.write(resp.content)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;{% endcodeblock %}&lt;/p&gt;
+&lt;p&gt;效果:
+&lt;img src=&#34;https://hugo.nikoblog.top/done.webp&#34; alt=&#34;&#34;  /&gt;&lt;/p&gt;
+&lt;p&gt;如果看到那些用ID命名的歌曲不惯呢，可以打开网易云音乐桌面版 &amp;ndash;&amp;gt; 打开本地音乐 &amp;ndash;&amp;gt; 选择目录 &amp;ndash;&amp;gt; 把&lt;code&gt;缓存糖果屋&lt;/code&gt;添加进去 &amp;ndash;&amp;gt; 添加完后，点击匹配音乐 &amp;ndash;&amp;gt; ALL DONE!&lt;/p&gt;
+&lt;p&gt;TO DO LIST:&lt;/p&gt;
+&lt;p&gt;{% checkbox red,将文件命名为歌曲名 %}
+{% checkbox blue,加入歌曲下载 %}
+{% checkbox yellow, 实现GUI %}&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>我的Python学习经历</title>
+        <link>https://hugo.nikoblog.top/post/%E6%88%91%E7%9A%84python%E5%AD%A6%E4%B9%A0%E7%BB%8F%E5%8E%86/</link>
+        <pubDate>Mon, 24 Jan 2022 15:02:44 +0000</pubDate>
+        
+        <guid>https://hugo.nikoblog.top/post/%E6%88%91%E7%9A%84python%E5%AD%A6%E4%B9%A0%E7%BB%8F%E5%8E%86/</guid>
+        <description>&lt;h1 id=&#34;前言&#34;&gt;前言&lt;/h1&gt;
+&lt;p&gt;虽然我知道自己是小白，但我依旧想说说这一两年来Python的进步。&lt;/p&gt;
+&lt;h2 id=&#34;一阵抒情&#34;&gt;一阵抒情&lt;/h2&gt;
+&lt;p&gt;一年半前，我就一普通得不能再普通的小学生，可能在班级里成绩能排个前十，也就当个班长，但又有什么用呢？{% del 班长又不能当饭吃， %}与同学的关系也不是特别兄弟，也就是普通同学，最多也就是普通朋友。&lt;/p&gt;
+&lt;p&gt;在那个暑假，我表哥过来我家暂住几周，说是要准备做手术。他每天都睡在我的房间，工作学习亦是如此，我每天闲来无事，就趴在他旁边，看他电脑上那些“好厉害啊”的代码，心中崇拜不已。我也就被吸引了过去，每天都这样看，慢慢也就了解了一些&lt;strong&gt;基础&lt;/strong&gt;知识。{% del 虽说我表哥是学Java的 %}&lt;/p&gt;
+&lt;p&gt;几周很快就过去了，表哥走了。{% del 不要乱想啊！ %}但我对计算机的热爱越来越多&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>让终端更优雅—— Windows Terminal美化</title>
+        <link>https://hugo.nikoblog.top/post/%E8%AE%A9%E7%BB%88%E7%AB%AF%E6%9B%B4%E4%BC%98%E9%9B%85-windows-terminal%E7%BE%8E%E5%8C%96/</link>
+        <pubDate>Fri, 21 Jan 2022 13:36:39 +0000</pubDate>
+        
+        <guid>https://hugo.nikoblog.top/post/%E8%AE%A9%E7%BB%88%E7%AB%AF%E6%9B%B4%E4%BC%98%E9%9B%85-windows-terminal%E7%BE%8E%E5%8C%96/</guid>
+        <description>&lt;p&gt;{% folding 站长的碎碎念 %}
+&lt;img src=&#34;https://hugo.nikoblog.top/cmd.png&#34; alt=&#34;这是默认的CMD&#34;  /&gt;&lt;/p&gt;
+&lt;p&gt;这就是默认的&lt;code&gt;命令提示符&lt;/code&gt;，这还是我美化过的，cmd的潜质就只能被挖掘到这了。{% del 每天看这个我会吐的🤮 %}
+我们不能就苟居于此。看到微软的&lt;code&gt;Build 2019 大会&lt;/code&gt;的了吗，Windows Terminal，我一看，好东西，立马看文档配置，学成以后，便有此文。
+{% endfolding %}&lt;/p&gt;
+&lt;h2 id=&#34;安装&#34;&gt;安装&lt;/h2&gt;
+&lt;p&gt;打开&lt;code&gt;Microsoft Store&lt;/code&gt;，搜索&lt;code&gt;Windows Terminal&lt;/code&gt;，直接安装即可。
+&lt;img src=&#34;https://hugo.nikoblog.top/store.webp&#34; alt=&#34;这是Win11的应用商店&#34;  /&gt;&lt;/p&gt;
+&lt;p&gt;还有个预览版，不知有什么差别，可以尝试。大概也差不了太多。
+&lt;img src=&#34;https://hugo.nikoblog.top/storepre.webp&#34; alt=&#34;预览版&#34;  /&gt;&lt;/p&gt;
+&lt;h2 id=&#34;美化&#34;&gt;美化&lt;/h2&gt;
+&lt;h3 id=&#34;基础&#34;&gt;基础&lt;/h3&gt;
+&lt;p&gt;打开安装好的Windows Terminal，大概是这样:
+&lt;img src=&#34;https://hugo.nikoblog.top/winter.webp&#34; alt=&#34;请忽略我的Hexo日志&#34;  /&gt;&lt;/p&gt;
+&lt;p&gt;很简单，我就只是加了个壁纸，调了一下不透明度，换了个字体，就完了。
+你只需点那个向下的箭头，在下拉菜单里点击&lt;code&gt;设置&lt;/code&gt;，在新建的窗口的下面点击你想设置的终端，如常用的&lt;code&gt;Powershell&lt;/code&gt;和&lt;code&gt;CMD&lt;/code&gt;，再找到&lt;code&gt;外观&lt;/code&gt;,如下。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://hugo.nikoblog.top/set.webp&#34; alt=&#34;设置页面&#34;  /&gt;&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>Vercel-加速个人博客</title>
+        <link>https://hugo.nikoblog.top/post/vercel-%E5%8A%A0%E9%80%9F%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/</link>
+        <pubDate>Wed, 19 Jan 2022 19:55:32 +0000</pubDate>
+        
+        <guid>https://hugo.nikoblog.top/post/vercel-%E5%8A%A0%E9%80%9F%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/</guid>
+        <description>&lt;p&gt;现在有不少人的博客网站都是白嫖 Github Pages等&lt;code&gt;免费&lt;/code&gt;静态文件部署站的吧，我也不例外。但免费的东西总有不足之处，例如链接太长啦、加载太慢啦、CDN流量没啦等等。在以前配置Twikoo时就发现了一个还算良心的加速平台 —— Vercel&lt;/p&gt;
+&lt;h2 id=&#34;登录注册&#34;&gt;登录/注册&lt;/h2&gt;
+&lt;p&gt;&lt;img src=&#34;https://hugo.nikoblog.top/post/Vercel-%e5%8a%a0%e9%80%9f%e4%b8%aa%e4%ba%ba%e5%8d%9a%e5%ae%a2/signup.webp&#34; alt=&#34;注册页&#34;  /&gt;&lt;/p&gt;
+&lt;p&gt;大概是这样，选择自己的注册方式进去注册，但有个大坑等着你跳……
+我第一次注册的时候报了个错，就是下面这个。
+&lt;code&gt;Error:This user account is blocked. Contact support@vercel.com for more information.&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;就是这个，整的我心态崩溃，其实解决很简单，你只需要按他要求发个邮件给他就行，就这么简单粗暴，我也是这么解决的，还多了一个外交机会，感兴趣的可以看我与可能跟我隔了大半个地球的人类对话&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://hugo.nikoblog.top/post/Vercel-%e5%8a%a0%e9%80%9f%e4%b8%aa%e4%ba%ba%e5%8d%9a%e5%ae%a2/com.webp&#34; alt=&#34;邮件&#34;  /&gt;&lt;/p&gt;
+&lt;h2 id=&#34;创建仓库&#34;&gt;创建仓库&lt;/h2&gt;
+&lt;p&gt;登陆后，大概会自动进入Dashboard(即仪表板)，然后点击New Project,然后会看到这样：
+&lt;img src=&#34;https://hugo.nikoblog.top/post/Vercel-%e5%8a%a0%e9%80%9f%e4%b8%aa%e4%ba%ba%e5%8d%9a%e5%ae%a2/pro.webp&#34; alt=&#34;New Project&#34;  /&gt;&lt;/p&gt;
+&lt;p&gt;我是登陆好的，一般应该是要先登录Github账号后同步才会这样。
+到了这个界面后，点击进入下面的&lt;code&gt;Import Third-Party Git Repository&lt;/code&gt;,输入自己博客静态文件的Github地址。&lt;/p&gt;
+&lt;p&gt;如果还没部署到Github上，就先随便点个仓库，先创建了先。&lt;/p&gt;
+&lt;p&gt;搞定这些后，会进入这样的页面：
+&lt;img src=&#34;https://hugo.nikoblog.top/post/Vercel-%e5%8a%a0%e9%80%9f%e4%b8%aa%e4%ba%ba%e5%8d%9a%e5%ae%a2/over.webp&#34; alt=&#34;创建仓库&#34;  /&gt;&lt;/p&gt;
+&lt;p&gt;注意，&lt;code&gt;my-repository&lt;/code&gt;填的是将创建的仓库名，但这也是部署后的域名的一部分，能短就短，更何况填了就不能改了，慎填。&lt;/p&gt;
+&lt;p&gt;整完这些后，Vercel会自动Clone源仓库的东东到你设的&lt;code&gt;my-repository&lt;/code&gt;，可以在下面查看进度，等一小会……&lt;/p&gt;
+&lt;h2 id=&#34;over&#34;&gt;Over!&lt;/h2&gt;
+&lt;p&gt;搞定后，Vercel会给你重定向，放烟花，可喜庆了。
+&lt;img src=&#34;https://hugo.nikoblog.top/post/Vercel-%e5%8a%a0%e9%80%9f%e4%b8%aa%e4%ba%ba%e5%8d%9a%e5%ae%a2/done.webp&#34; alt=&#34;done&#34;  /&gt;&lt;/p&gt;
+&lt;p&gt;点击中间的Domains下面的链接，那就是你的加速博客！&lt;/p&gt;
+&lt;h2 id=&#34;补充&#34;&gt;补充&lt;/h2&gt;
+&lt;h3 id=&#34;设定自定义域名&#34;&gt;设定自定义域名&lt;/h3&gt;
+&lt;p&gt;谁都不想用这不自由的又臭又长的地址，所以我命由我不由天。点击菜单栏的&lt;code&gt;Settings&lt;/code&gt;，找到 &lt;code&gt;Domains&lt;/code&gt;，点击默认域名右边的&lt;code&gt;Edit&lt;/code&gt;按钮，自己改。&lt;/p&gt;
+&lt;h3 id=&#34;更新网页&#34;&gt;更新网页&lt;/h3&gt;
+&lt;p&gt;当你又对网页进行更改了咋办？No Problem。我们只需点到菜单栏的&lt;code&gt;Deployments&lt;/code&gt;，点第一个列表Item右边的那三个点，像这样。
+&lt;img src=&#34;https://hugo.nikoblog.top/post/Vercel-%e5%8a%a0%e9%80%9f%e4%b8%aa%e4%ba%ba%e5%8d%9a%e5%ae%a2/buchong.webp&#34; alt=&#34;补充2&#34;  /&gt;
+点击后出来一个框，点&lt;code&gt;Promote to Production&lt;/code&gt;，弹出个确认框，确认完事。&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>2021·总结</title>
+        <link>https://hugo.nikoblog.top/post/2021%E6%80%BB%E7%BB%93/</link>
+        <pubDate>Wed, 19 Jan 2022 11:11:48 +0000</pubDate>
+        
+        <guid>https://hugo.nikoblog.top/post/2021%E6%80%BB%E7%BB%93/</guid>
+        <description>&lt;p&gt;{% tip sync%}
+这篇年度总结迟到了1月19天，也许有些目标已经忘记了，想起来就会持续更新。
+{% endtip %}&lt;/p&gt;
+&lt;h1 id=&#34;回顾-2021-&#34;&gt;回顾 2021 🐂&lt;/h1&gt;
+&lt;p&gt;2021这一年各个行业都不平凡，科技界有华为出鸿蒙2.0、OpenEuler系统，医学界有中国全面第二针甚至是第三针，而我在这一年也有许多改变和进步。&lt;/p&gt;
+&lt;p&gt;一是我学习较以前更 {% inlineimage &lt;a class=&#34;link&#34; href=&#34;https://cdn.jsdelivr.net/gh/volantis-x/cdn-emoji/aru-l/0000.gif&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://cdn.jsdelivr.net/gh/volantis-x/cdn-emoji/aru-l/0000.gif&lt;/a&gt; %} 刻苦了，{% psw 虽然说语文依旧很烂。 %}二是我的Code水平得到了有效提高，大部分原因还是我啃了好几本砖头书，如：《操作系统概念精要》、《编译原理》、《Tensorflow AI 》等 blabla的书📚&lt;/p&gt;
+&lt;p&gt;最重要的是 (至少我是那么认为的)，本博客其实2021瘫了半年，记得是最后一次部署时Hexo报错：[No layout: index.html] 当时没看到，到学校上信息课时，一上博客，一片白，把我吓蒙了。然后没时间管，就渐渐忘了，很多博文没写。&lt;/p&gt;
+&lt;p&gt;到了寒假，我就自由了，赶紧换个主题上线，就像现在这样，好看不？&lt;/p&gt;
+&lt;p&gt;{%link 博客公告, /article/744616242/, /img/favicon.png%}&lt;/p&gt;
+&lt;p&gt;最近疯狂刷博客，看看那Commits，2022才刚开始就三百多。
+{% ghcard Niko-Karen, theme=algolia %}&lt;/p&gt;
+&lt;h1 id=&#34;展望-2022-&#34;&gt;展望 2022 🐅&lt;/h1&gt;
+&lt;p&gt;对于我这种小学生，最重要莫过于我人生中的第一场、也是一生一次的大考 —— 小升初。
+也许我不能说那么哲学，但还是要说：{% span blue,小升初即是童年旅程的终点站。%}&lt;/p&gt;
+&lt;p&gt;算了，不要那么抒情啦。进入正题。&lt;/p&gt;
+&lt;p&gt;{% timeline 2022 将要发生的重大事迹, orange %}&lt;/p&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;p&gt;黄冈中学密考，好像是五月多。
+目前已考上{% span cyan,广大附中%}……的分校，好像很……LAN&lt;/p&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;p&gt;{% emp 计算机二级%} Python 语言程序设计考试!
+证明自己实力的时刻！
+加油！&lt;/p&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;p&gt;入初中，不知能进那所初中呢？&lt;/p&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;p&gt;嘿嘿，没想到吧，这天我生日。
+我只要提早3天生出来就可以上初中了。可恶(〃＞目＜)。&lt;/p&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;p&gt;{% endtimeline %}&lt;/p&gt;
+&lt;p&gt;TO DO LIST:&lt;/p&gt;
+&lt;p&gt;{% checkbox red,成功考过计算机二级Python %}
+{% checkbox blue,进入黄冈中学 %}
+{% checkbox yellow, 必须出个Python开源项目 %}
+{% checkbox cyan checked, 多写博文 %}&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>说说Linux</title>
+        <link>https://hugo.nikoblog.top/post/%E8%AF%B4%E8%AF%B4linux/</link>
+        <pubDate>Tue, 18 Jan 2022 11:17:51 +0000</pubDate>
+        
+        <guid>https://hugo.nikoblog.top/post/%E8%AF%B4%E8%AF%B4linux/</guid>
+        <description>&lt;p&gt;{% note red &amp;lsquo;fas fa-exclamation-triangle&amp;rsquo; %}
+本文会有很多主观意识的{% del 暴力语言 %}，如有不适，请吐槽，本人尽快更改。
+{% endnote %}&lt;/p&gt;
+&lt;p&gt;我用Linux也有很长时间了，有近三年了。在我9岁的时候，我第一次接触电脑就是用Ubuntu 18.04 LTS，当时图形界面已经很好看了，以至于现在我家的那台古董电脑还运行着Lubuntu 18.04 LTS (Ubuntu的分支版，LXDE桌面)。&lt;/p&gt;
+&lt;h2 id=&#34;个人linux使用史--主观-&#34;&gt;个人Linux使用史 { 主观 }&lt;/h2&gt;
+&lt;h3 id=&#34;2018&#34;&gt;2018&lt;/h3&gt;
+&lt;p&gt;那时我正在上网查资料，觉得Win7很丑、跟不上时代了，就想换个系统。当时在我们普通人眼中，只有一种系统:Windows，所以当时一搜 &amp;ldquo;重装系统&amp;rdquo; 就满屏是Windows的重装教程(我还不会自己重装)。&lt;/p&gt;
+&lt;p&gt;我特无奈:&amp;ldquo;我的电脑装Win7已经有些撑不住了，还能来个Win8.1 ?Win10 ?&amp;ldquo;所以我再搜:&amp;ldquo;除Windows外的开源系统&amp;rdquo;，就出来个Linux,Unix。
+&amp;ldquo;甚么是Linux? 甚么是Unix&amp;rdquo; 带着疑问，就尝试学习装了个最简单的Ubuntu。{% psw 差点就装上了Arch，装成了我估计要成仙。😅%}&lt;/p&gt;
+&lt;h3 id=&#34;2019&#34;&gt;2019&lt;/h3&gt;
+&lt;p&gt;自从我发现Linux这个大宝藏，就沉迷于此不可自拔，不停换系统:Ubuntu,Debian,Fedora,Centos&amp;hellip;&amp;hellip;甚至Arch都装上了。但有个大毛病，就是我装上后总嫌不好看，不停美化，把系统速度拉低又拉低，但好处既是我的命令行越来越熟，越来越快。&lt;/p&gt;
+&lt;h3 id=&#34;2020&#34;&gt;2020&lt;/h3&gt;
+&lt;p&gt;到了这个阶段，我可以自建Git服务器、博客服务器，运用git等工具&amp;hellip;&amp;hellip;巴拉巴拉很多技能都学习到了。其中激励我的大概都是我对计算机的热爱和痴迷，有了这些我才能步步高升，登上计算机的殿堂。&lt;/p&gt;
+&lt;h2 id=&#34;linux-发展史--客观-&#34;&gt;Linux 发展史 { 客观 }&lt;/h2&gt;
+&lt;p&gt;我对以前的Linux版本不熟，我主要了解的是内核版本4.5+至5.0+，平时使用的，也就这几个，曾经也自己编译内核自制小系统，叫{% label SimLinux orange %}，意思就是简单的Linux，功能也简单。就只有个Bash。&lt;/p&gt;
+&lt;p&gt;{% note purple &amp;lsquo;fab fa-linux&amp;rsquo; simple %}
+本人要不下次写个{%label 自己编译、制作Linux发行版教程 blue%}? 大家众议。
+{% endnote %}&lt;/p&gt;
+&lt;p&gt;跑题了，回到正题。&lt;/p&gt;
+&lt;h3 id=&#34;2018-1&#34;&gt;2018&lt;/h3&gt;
+&lt;p&gt;2018年的Linux已经非常不错了，当时的图形界面(除了图标)和现在竟没啥大变化。 {% psw 如果你美化了当我没说。 %}&lt;/p&gt;
+&lt;p&gt;下面这玩意2G内存装Gnome挺神奇的，我也是2G内存，但装上Gnome就是PPT😑
+&lt;img src=&#34;https://hugo.nikoblog.top/debian2018.webp&#34; alt=&#34;2018的Debian&#34;  /&gt;&lt;/p&gt;
+&lt;h3 id=&#34;2019-1&#34;&gt;2019&lt;/h3&gt;
+&lt;p&gt;2019 图形界面较2018进步了点，尤其是图标进步很大，更有后起之秀&lt;strong&gt;Zorin OS&lt;/strong&gt;，又漂亮又方便，制作者是两名爱尔兰的青少年。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://hugo.nikoblog.top/zorin.webp&#34; alt=&#34;Zorin OS&#34;  /&gt;&lt;/p&gt;
+&lt;h3 id=&#34;2020-1&#34;&gt;2020&lt;/h3&gt;
+&lt;p&gt;2020的Linux没啥大变化，但美化下还是很不错的，我觉得吧，Linux用于服务器等商业方面就好，在个人发行版上还不够成熟，几乎每个人拿到Linux后都是直接美化，浪费时间，不太好的习惯，建议改正。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://hugo.nikoblog.top/fedora.webp&#34; alt=&#34;Fedora Gnome&#34;  /&gt;&lt;/p&gt;
+&lt;h2 id=&#34;balabala&#34;&gt;BALABALA&lt;/h2&gt;
+&lt;p&gt;我对Linux这个系统还是充满希望的，我也挺喜欢这个企鹅，和那个{% del 文明有礼 %}的Linus。最后，祝Linux越来越好！
+&lt;img src=&#34;https://hugo.nikoblog.top/linus-nvidia.webp&#34; alt=&#34;Linus的咆哮&#34;  /&gt;
+&lt;img src=&#34;https://hugo.nikoblog.top/tux.webp&#34; alt=&#34;Tux持枪&#34;  /&gt;&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>Python-Requests</title>
+        <link>https://hugo.nikoblog.top/post/python-requests/</link>
+        <pubDate>Mon, 17 Jan 2022 20:00:03 +0000</pubDate>
+        
+        <guid>https://hugo.nikoblog.top/post/python-requests/</guid>
+        <description>&lt;p&gt;{% note red &amp;ldquo;fas fa-language&amp;rdquo; %}
+本教程使用Python语言，需提前安装Pip3 or Pip，例如Linux类的，请在命令行内输入:
+{% codeblock lang:shell %}
+sudo apt install python3-pip
+{% endcodeblock %}
+{% endnote %}&lt;/p&gt;
+&lt;h2 id=&#34;安装&#34;&gt;安装&lt;/h2&gt;
+&lt;p&gt;{% tabs 安装,-1 %}&lt;/p&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;p&gt;一条命令(临时换源):
+{% codeblock lang:shell %}
+sudo pip install requests -i &lt;a class=&#34;link&#34; href=&#34;https://mirrors.aliyun.com/pypi/simple/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://mirrors.aliyun.com/pypi/simple/&lt;/a&gt;
+{% endcodeblock %}&lt;/p&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;p&gt;Pypi包源官网: &lt;a class=&#34;link&#34; href=&#34;https://pypi.org/project/requests/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Requests&lt;/a&gt;
+&lt;img src=&#34;https://hugo.nikoblog.top/pypi.webp&#34; alt=&#34;大概是这样的&#34;  /&gt;
+在这可以看到有关这个第三方库的一切。&lt;/p&gt;
+&lt;p&gt;另一个就是PIP命令行安装，很简单，一条命令。&lt;/p&gt;
+&lt;p&gt;{% note purple &amp;ldquo;fas fa-info&amp;rdquo; %}
+由于包源在国外，所以访问速度感人，可以先Pip换源，再试。(后面说)
+{% endnote %}&lt;/p&gt;
+&lt;p&gt;{% codeblock lang:shell %}
+pip install requests
+{% endcodeblock %}&lt;/p&gt;
+&lt;p&gt;加速(阿里云):
+{% codeblock lang:shell %}pip config set global.index-url &lt;a class=&#34;link&#34; href=&#34;https://mirrors.aliyun.com/pypi/simple/%7b%25&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://mirrors.aliyun.com/pypi/simple/{%&lt;/a&gt; endcodeblock %}&lt;/p&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;p&gt;&lt;strong&gt;本人无钱购买Mac，所以没有钞能力去完成这个教程，各位有钱人施舍施舍？&lt;/strong&gt;&lt;/p&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;p&gt;{% endtabs %}&lt;/p&gt;
+&lt;h2 id=&#34;使用&#34;&gt;使用&lt;/h2&gt;
+&lt;h3 id=&#34;基础get请求&#34;&gt;基础{Get请求}&lt;/h3&gt;
+&lt;p&gt;{% codeblock lang:python %}
+import requests
+data = {
+&amp;lsquo;User-Agent&amp;rsquo;: &amp;lsquo;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.71 Safari/537.36&amp;rsquo;
+}  # 向服务器传递的数据
+response = requests.get(&amp;lsquo;&lt;a class=&#34;link&#34; href=&#34;https://bing.com&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://bing.com&lt;/a&gt;&amp;rsquo;,data=data).text # text函数:获取对应网址的源代码
+print(response)
+{% endcodeblock %}&lt;/p&gt;
+&lt;p&gt;User-Agent就像是&lt;strong&gt;浏览器的身份证&lt;/strong&gt;,如果是Requests默认的ua的话，对应服务器会拒绝你的&lt;strong&gt;爬虫&lt;/strong&gt;请求，简而言之，拿不到数据。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://hugo.nikoblog.top/demo1.webp&#34; alt=&#34;就在这拿User-Agent&#34;  /&gt;&lt;/p&gt;
+&lt;h3 id=&#34;进阶-post请求&#34;&gt;进阶 {Post请求}&lt;/h3&gt;
+&lt;p&gt;&lt;img src=&#34;https://hugo.nikoblog.top/demo2.webp&#34; alt=&#34;官网教程&#34;  /&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;带数据的 post&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;{% codeblock lang:python %}&lt;/p&gt;
+&lt;h1 id=&#34;---codingutf-8---&#34;&gt;-&lt;em&gt;- coding:utf-8 -&lt;/em&gt;-&lt;/h1&gt;
+&lt;p&gt;import requests
+import json&lt;/p&gt;
+&lt;p&gt;host = &amp;ldquo;&lt;a class=&#34;link&#34; href=&#34;http://httpbin.org/%22&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;http://httpbin.org/&#34;&lt;/a&gt;
+endpoint = &amp;ldquo;post&amp;rdquo;
+url = &amp;lsquo;&#39;.join([host,endpoint])
+data = {&amp;lsquo;key1&amp;rsquo;:&amp;lsquo;value1&amp;rsquo;,&amp;lsquo;key2&amp;rsquo;:&amp;lsquo;value2&amp;rsquo;}&lt;/p&gt;
+&lt;p&gt;r = requests.post(url,data=data)
+#response = r.json()
+print (r.text)
+{% endcodeblock %}&lt;/p&gt;
+&lt;ol start=&#34;2&#34;&gt;
+&lt;li&gt;多文件上传&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;{% codeblock lang:python %}&lt;/p&gt;
+&lt;h1 id=&#34;---codingutf-8----1&#34;&gt;-&lt;em&gt;- coding:utf-8 -&lt;/em&gt;-&lt;/h1&gt;
+&lt;p&gt;import requests
+import json&lt;/p&gt;
+&lt;p&gt;host = &amp;ldquo;&lt;a class=&#34;link&#34; href=&#34;http://httpbin.org/%22&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;http://httpbin.org/&#34;&lt;/a&gt;
+endpoint = &amp;ldquo;post&amp;rdquo;&lt;/p&gt;
+&lt;p&gt;url = &amp;lsquo;&#39;.join([host,endpoint])
+#多文件上传
+files = [
+(&amp;lsquo;file1&amp;rsquo;,(&amp;lsquo;test.txt&amp;rsquo;,open(&amp;lsquo;test.txt&amp;rsquo;, &amp;lsquo;rb&amp;rsquo;))),
+(&amp;lsquo;file2&amp;rsquo;, (&amp;lsquo;test.png&amp;rsquo;, open(&amp;lsquo;test.png&amp;rsquo;, &amp;lsquo;rb&amp;rsquo;)))
+]&lt;/p&gt;
+&lt;p&gt;r = requests.post(url,files=files)
+print (r.text)
+{% endcodeblock %}&lt;/p&gt;
+&lt;h3 id=&#34;冷门-put-请求&#34;&gt;冷门 {Put 请求}&lt;/h3&gt;
+&lt;p&gt;{% codeblock lang:python %}
+import requests
+import json
+url_put = &amp;ldquo;http://127.0.0.1:8080/&amp;rdquo;
+headers_put = {
+&amp;lsquo;Content-Type&amp;rsquo;: &amp;ldquo;application/json&amp;rdquo;
+}
+param = {
+&amp;lsquo;myObjectField&amp;rsquo;: &amp;lsquo;hello&amp;rsquo;
+}
+payload = json.dumps(param)
+response_put = requests.put(url, data=payload, headers=headers_put)
+{% endcodeblock %}&lt;/p&gt;
+&lt;h2 id=&#34;项目实战-梨视频爬虫&#34;&gt;项目实战: 梨视频爬虫&lt;/h2&gt;
+&lt;p&gt;{% codeblock lang:python %}&lt;/p&gt;
+&lt;h1 id=&#34;usrbinpython3&#34;&gt;!/usr/bin/python3&lt;/h1&gt;
+&lt;h1 id=&#34;---codingutf-8----2&#34;&gt;-&lt;em&gt;- coding:utf-8 -&lt;/em&gt;-&lt;/h1&gt;
+&lt;p&gt;&amp;quot;&amp;rdquo;&amp;rdquo;
+@author:
+@file: 梨视频爬虫.py
+@time: 2021/7/11 21:48
+@desc:
+&amp;quot;&amp;quot;&amp;quot;
+import requests&lt;/p&gt;
+&lt;p&gt;url = &amp;ldquo;&lt;a class=&#34;link&#34; href=&#34;https://www.pearvideo.com/video_1731260%22&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://www.pearvideo.com/video_1731260&#34;&lt;/a&gt;
+headers = {
+&amp;ldquo;user-agent&amp;rdquo;: &amp;ldquo;Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.198 Safari/537.36&amp;rdquo;,
+&amp;ldquo;referer&amp;rdquo;: url,
+}
+contId = url.split(&amp;quot;_&amp;quot;)[1]
+videoStatusUrl = f&amp;quot;https://video.pearvideo.com/mp4/third/20210603/cont-{contId}-15316010-202041-hd.mp4&amp;rdquo;&lt;/p&gt;
+&lt;h1 id=&#34;httpsvideopearvideocommp4third20210603cont-1731260-15316010-202041-hdmp4&#34;&gt;&amp;lsquo;&lt;a class=&#34;link&#34; href=&#34;https://video.pearvideo.com/mp4/third/20210603/cont-1731260-15316010-202041-hd.mp4%27&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://video.pearvideo.com/mp4/third/20210603/cont-1731260-15316010-202041-hd.mp4&#39;&lt;/a&gt;&lt;/h1&gt;
+&lt;p&gt;resp = requests.get(videoStatusUrl, headers=headers).content
+with open(&amp;ldquo;video.mp4&amp;rdquo;, mode=&amp;ldquo;wb&amp;rdquo;) as file:
+file.write(resp)&lt;/p&gt;
+&lt;p&gt;{% endcodeblock %}&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;第14行,referer的定义，因梨视频请求头中必须有&lt;code&gt;防盗链&lt;/code&gt;，即字典中的&lt;code&gt;referer&lt;/code&gt;，如果没有，则获取不到视频数据。&lt;/li&gt;
+&lt;li&gt;第16、17行，通过抓包得知，梨视频的视频直链即为一串固定地址加上视频ID号，只需进行字符串分割即可。&lt;/li&gt;
+&lt;li&gt;第20行，向服务器发起{% span purple, GET %}请求，注意,&lt;code&gt;.content&lt;/code&gt;是获取网页的&lt;code&gt;二进制数据&lt;/code&gt;。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;总结&#34;&gt;总结&lt;/h2&gt;
+&lt;p&gt;这库是真的好用，方便。比Python标准库urllib好N倍不止，平时爬虫爬个电影数据就好，不要太过分。&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>Windows11 美化&#43;优化教程</title>
+        <link>https://hugo.nikoblog.top/post/windows11-%E7%BE%8E%E5%8C%96-%E4%BC%98%E5%8C%96%E6%95%99%E7%A8%8B/</link>
+        <pubDate>Mon, 17 Jan 2022 10:14:30 +0000</pubDate>
+        
+        <guid>https://hugo.nikoblog.top/post/windows11-%E7%BE%8E%E5%8C%96-%E4%BC%98%E5%8C%96%E6%95%99%E7%A8%8B/</guid>
+        <description>&lt;h2 id=&#34;跟微软的姻缘&#34;&gt;跟微软的姻缘&lt;/h2&gt;
+&lt;p&gt;事情回到两年前，那时我刚放暑假，如疯狗般把作业写完后，百无聊赖，就打开电脑玩。
+上网看了看新闻后，感觉有点无趣: 上哪个网站都要登录，没账号、没邮箱寸步难行啊！&lt;/p&gt;
+&lt;p&gt;就去注册个邮箱吧！心里想着。到处找地址，搜百度。但几乎没有哪个邮箱注册是不需要手机号的，而我就缺这玩意！
+咋办？接着找呗。最后，我找了&lt;a class=&#34;link&#34; href=&#34;https://outlook.com&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Outlook&lt;/a&gt;，不用手机号！真香！&lt;/p&gt;
+&lt;p&gt;就这样，跟微软扯上关系了呗(谁叫Gmail需要翻墙的&amp;hellip;&amp;hellip;那时我还不知道VPN是什么 😑)&lt;/p&gt;
+&lt;h2 id=&#34;回到正题&#34;&gt;回到正题&lt;/h2&gt;
+&lt;p&gt;不扯那么远。回到咱们主题: {% label Windows11美化+优化教程 purple%}&lt;/p&gt;
+&lt;p&gt;注意，是&lt;strong&gt;Windows 11&lt;/strong&gt;。禁止Windows 10仿Win11入内！&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;先给大家展示下我桌面哈
+&lt;img src=&#34;https://hugo.nikoblog.top/mydesktop.webp&#34; alt=&#34;我的桌面&#34;  /&gt;&lt;/p&gt;
+&lt;h3 id=&#34;透明化任务栏&#34;&gt;透明化任务栏&lt;/h3&gt;
+&lt;p&gt;目前Windows虽然支持透明化，但还不够，还是太模糊了。我们要完美，完美！{来自处女座的咆哮}&lt;/p&gt;
+&lt;p&gt;{% tabs 透明化方法,2 %}&lt;/p&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;h4 id=&#34;死磕在windows设置里&#34;&gt;死磕在Windows设置里&lt;/h4&gt;
+&lt;ol&gt;
+&lt;li&gt;打开设置 -&amp;gt; 辅助功能 -&amp;gt; 视觉效果&lt;/li&gt;
+&lt;li&gt;勾选&lt;strong&gt;透明效果&lt;/strong&gt;，(好像装系统就自动勾了&amp;hellip;)
+Effect: 任务栏只有50%透明，&lt;strong&gt;不推荐&lt;/strong&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;h4 id=&#34;使用软件translucenttb&#34;&gt;使用软件：TranslucentTB&lt;/h4&gt;
+&lt;p&gt;优点：比另一个重点，但样式多。
+缺点：好处说了，太重了。
+{% tabs 使用方法 %}&lt;/p&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;h5 id=&#34;在应用商店里下载&#34;&gt;在应用商店里下载&lt;/h5&gt;
+&lt;p&gt;打开应用商店，搜索&lt;strong&gt;TranslucentTB&lt;/strong&gt;,安装、下载，免费送货上门
+&lt;img src=&#34;https://hugo.nikoblog.top/store.webp&#34; alt=&#34;应用商店(汉化的)&#34;  /&gt;&lt;/p&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;h5 id=&#34;上官网下载&#34;&gt;上官网下载&lt;/h5&gt;
+&lt;p&gt;提供网址:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://github.com/TranslucentTB/TranslucentTB&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Github网址&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://pc.qq.com/detail/0/detail_24860.html&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;腾讯软件管家&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;p&gt;{% endtabs %}&lt;/p&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;h4 id=&#34;使用软件startisback&#34;&gt;使用软件：Startisback&lt;/h4&gt;
+&lt;p&gt;官网：{%btn &amp;lsquo;&lt;a class=&#34;link&#34; href=&#34;https://startisback.com/%27,Startisback,outline%25%7d&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://startisback.com/&#39;,Startisback,outline%}&lt;/a&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;下载 &lt;strong&gt;Free Trial&lt;/strong&gt;版，即免费版，足够了。&lt;/li&gt;
+&lt;li&gt;下载解压后，以&lt;strong&gt;管理员身份运行&lt;/strong&gt;，安装。&lt;/li&gt;
+&lt;li&gt;打开控制面板&lt;/li&gt;
+&lt;li&gt;将右上角的【查看方式】修改为【大图标】，在下面点击【开始菜单】&lt;/li&gt;
+&lt;li&gt;点击左侧的【外观】，在右侧勾选【使用自定义任务栏颜色】，然后在右侧将颜色的滑动块移动到最左边，点击应用 — 确定&lt;/li&gt;
+&lt;li&gt;打开任务管理器&lt;/li&gt;
+&lt;li&gt;重启&lt;strong&gt;任务管理器&lt;/strong&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;All Done!&lt;/p&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;p&gt;{% endtabs %}&lt;/p&gt;
+&lt;h3 id=&#34;dism优化&#34;&gt;Dism++优化&lt;/h3&gt;
+&lt;p&gt;{% blockquote %}
+美化易上头，一上头就把持不住。尽早跳出坑来，让其他人跳进去。嘻嘻~
+{% endblockquote %}
+{% btn &amp;lsquo;&lt;a class=&#34;link&#34; href=&#34;https://dl.softmgr.qq.com/original/System/Dism10.1.1001.10.zip%27&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://dl.softmgr.qq.com/original/System/Dism10.1.1001.10.zip&#39;&lt;/a&gt;,下载,outline %}&lt;/p&gt;
+&lt;p&gt;下载解压后，选择自己系统版本，打开对应的Dism++ EXE，尽自己所能优化，不会别动就行。&lt;/p&gt;
+&lt;h3 id=&#34;不断探索&#34;&gt;不断探索&lt;/h3&gt;
+&lt;p&gt;博主能力有限，也就一小学生，也就只能写这些了，有疑问或需求请在评论区提出，本人将加速更新。BiuBiu~&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://hugo.nikoblog.top/learn.webp&#34; alt=&#34;晒晒Microsoft Learn账号&#34;  /&gt;&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>New Product -- 网易云下载播放器</title>
+        <link>https://hugo.nikoblog.top/post/new-product-%E7%BD%91%E6%98%93%E4%BA%91%E4%B8%8B%E8%BD%BD%E6%92%AD%E6%94%BE%E5%99%A8/</link>
+        <pubDate>Mon, 10 Jan 2022 14:54:31 +0000</pubDate>
+        
+        <guid>https://hugo.nikoblog.top/post/new-product-%E7%BD%91%E6%98%93%E4%BA%91%E4%B8%8B%E8%BD%BD%E6%92%AD%E6%94%BE%E5%99%A8/</guid>
+        <description>&lt;p&gt;昨天翻了下写过的博文，其中有一篇是写&lt;a class=&#34;link&#34; href=&#34;http://localhost:4000/posts/2118472832/&#34;  title=&#34;文章&#34;
+     target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;网易云直链&lt;/a&gt;的，看着看着，一个邪恶的想法油然而生&amp;hellip;&amp;hellip;&lt;/p&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;p&gt;{% blockquote Niko,贱贱的语言 %}
+&amp;ldquo;为何不做一个集合音乐下载和播放的小程序呢？以我的能力完全可以的啊！搞他。&amp;rdquo;
+{% endblockquote %}
+于是开始搞了。&lt;/p&gt;
+&lt;p&gt;也没多久，一天一夜，搞定了。
+&lt;img src=&#34;https://hugo.nikoblog.top/1.webp&#34; alt=&#34;项目打包好的文件&#34;  /&gt;
+下载的音乐会以歌曲id命名，放在文件目录，支持多文件下载（不是同时）。
+&lt;img src=&#34;https://hugo.nikoblog.top/2.webp&#34; alt=&#34;软件界面(丑不？)&#34;  /&gt;
+看到没，下载完之后支持选择播放，但，凡事就怕但。
+界面是在太 {丑} 好 {得} 看 {一} 了{批}！&lt;/p&gt;
+&lt;p&gt;没办法啊！Python语言没一个好看的UI界面，也可能有，我不会用，比如Pyqt5。
+害，不多说了，多说无益，放源代码！&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://github.com/Niko-Karen/my_code/blob/master/Python/%E6%92%AD%E6%94%BE.py&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Github文件地址&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;{% codeblock lang:python %}
+from tkinter.constants import LEFT, RIGHT
+import requests
+import tkinter
+from tkinter import messagebox
+import sys&lt;/p&gt;
+&lt;p&gt;def music_play():
+import pygame&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;pygame.mixer.init()
+pygame.mixer.music.load(str(id) + &#39;.mp3&#39;)
+pygame.mixer.music.play()
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;def get_link():
+try:
+text = entry.get()
+lst = text.split(&#39;?&#39;)
+str_lst = lst[1].split(&#39;=&#39;)[1]&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;    link = &#39;https://music.163.com/song/media/outer/url?id=&#39; + str_lst
+
+    global id
+    id = str(str_lst)
+
+    return link, id
+
+except Exception as error:
+    error_s = &#39;ERROR:&#39;, str(error)
+    entry.delete(0, tkinter.END)
+    messagebox.showerror(error_s)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;def get_song(link, id):
+data = {
+&amp;lsquo;user-agent&amp;rsquo;: &amp;lsquo;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36&amp;rsquo;
+}
+resp = requests.get(link, data=data).content
+with open(&#39;.\&#39; + id + &amp;lsquo;.mp3&amp;rsquo;, &amp;lsquo;wb&amp;rsquo;) as s:
+s.write(resp)&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;global result
+result = messagebox.askyesno(title=&#39;是否播放？&#39;, message=&#39;下载完成，是否播放？&#39;)
+
+if result:
+    music_play()
+
+return True
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;def ex():
+sys.exit(0)&lt;/p&gt;
+&lt;p&gt;def tkin_canvas():
+global top
+top = tkinter.Tk()
+top.title(&amp;lsquo;网易云音乐下载&amp;rsquo;)&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;L1 = tkinter.Label(top, text=&#39;请输入歌曲网址:&#39;)
+
+global entry
+entry = tkinter.Entry(top)
+
+button = tkinter.Button(top, text=&#39;下载&#39;, command=main)
+button_exit = tkinter.Button(top, text=&#39;退出&#39;, command=ex)
+
+L1.pack(side=LEFT)
+button_exit.pack(side=RIGHT)
+button.pack(side=RIGHT)
+entry.pack(side=RIGHT)
+
+top.mainloop()
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;def main():
+print(&amp;lsquo;System Starting&amp;hellip;&amp;hellip;&#39;)
+all = get_link()
+link = all[0]
+id = all[1]
+chose = get_song(link, id)
+print(&amp;lsquo;All Done.&#39;)&lt;/p&gt;
+&lt;p&gt;if &lt;strong&gt;name&lt;/strong&gt; == &amp;lsquo;&lt;strong&gt;main&lt;/strong&gt;&#39;:
+tkin_canvas()&lt;/p&gt;
+&lt;p&gt;{% endcodeblock %}&lt;/p&gt;
+&lt;p&gt;也没多少，80多行，轻轻松松。
+搞完了这个，以后再来个进阶的，不断进步，积极进取！&lt;/p&gt;</description>
+        </item>
+        <item>
+        <title>网易云音乐直链</title>
+        <link>https://hugo.nikoblog.top/post/%E7%BD%91%E6%98%93%E4%BA%91%E9%9F%B3%E4%B9%90%E7%9B%B4%E9%93%BE/</link>
+        <pubDate>Thu, 06 Jan 2022 19:05:06 +0000</pubDate>
+        
+        <guid>https://hugo.nikoblog.top/post/%E7%BD%91%E6%98%93%E4%BA%91%E9%9F%B3%E4%B9%90%E7%9B%B4%E9%93%BE/</guid>
+        <description>&lt;p&gt;网易云音乐有很多方法可以获取直链，但这些方法要么很快失效，要么有缓存时间。&lt;/p&gt;
+&lt;p&gt;以下提供的方法简单、快捷并且直到现在依然可用。已经稳定几年了，网易云音乐外链用官方的就好。&lt;/p&gt;
+&lt;p&gt;（凡是网易云音乐可以正常试听的均可以直链，因为版权原因或其他原因无法试听的也无法外链。）&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://cdn.jsdelivr.net/gh/2501070055/PIC/usr/uploads/2021/02/2025864149.jpg&#34; alt=&#34;&#34;  /&gt;&lt;/p&gt;
+&lt;h4 id=&#34;标题这里需要用到网易云音乐提供的直链-api&#34;&gt;标题这里需要用到网易云音乐提供的直链 api：&lt;/h4&gt;
+&lt;p&gt;&lt;code&gt;https://music.163.com/song/media/outer/url?id=xxx.mp3&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;这里的 &lt;code&gt;id=xxx.mp3&lt;/code&gt; 是根据你需要的歌曲的 ID 进行更改。&lt;/p&gt;
+&lt;h4 id=&#34;标题例如歌曲纵容--capper&#34;&gt;标题例如：歌曲：纵容 / Capper&lt;/h4&gt;
+&lt;p&gt;&lt;code&gt;https://music.163.com/#/song?id=1819970423&lt;/code&gt;&lt;/p&gt;
+&lt;h4 id=&#34;标题修改为&#34;&gt;标题修改为：&lt;/h4&gt;
+&lt;p&gt;&lt;code&gt;https://music.163.com/song/media/outer/url?id=1819970423.mp3&lt;/code&gt;&lt;/p&gt;
+&lt;h4 id=&#34;标题-demo-演示&#34;&gt;标题 DEMO 演示&lt;/h4&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;&amp;lt;br&amp;gt;
+&amp;lt;audio controls=&amp;quot;controls&amp;quot;&amp;gt;
+  &amp;lt;source src=&amp;quot;/i/song.ogg&amp;quot; type=&amp;quot;audio/ogg&amp;quot;&amp;gt;
+  &amp;lt;source src=&amp;quot;https://music.163.com/song/media/outer/url?id=1816006982.mp3&amp;quot; type=&amp;quot;audio/mpeg&amp;quot;&amp;gt;
+Your browser does not support the audio element.
+&amp;lt;/audio&amp;gt;
+&amp;lt;br&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;!-- raw HTML omitted --&gt;
+&lt;!-- raw HTML omitted --&gt;</description>
+        </item>
+        <item>
+        <title>Python Jieba库</title>
+        <link>https://hugo.nikoblog.top/post/python-jieba%E5%BA%93/</link>
+        <pubDate>Thu, 06 Jan 2022 13:11:13 +0000</pubDate>
+        
+        <guid>https://hugo.nikoblog.top/post/python-jieba%E5%BA%93/</guid>
+        <description>&lt;h2 id=&#34;1-jieba-的江湖地位&#34;&gt;&lt;strong&gt;1. jieba 的江湖地位&lt;/strong&gt;&lt;/h2&gt;
+&lt;p&gt;NLP（自然语言）领域现在可谓是群雄纷争，各种开源组件层出不穷，其中一支不可忽视的力量便是 jieba 分词，号称要做最好的 Python 中文分词组件。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://pic1.zhimg.com/v2-144f02ac2b50ee5841fb2bee3fa36948_r.jpg&#34; alt=&#34;&#34;  /&gt;&lt;/p&gt;
+&lt;p&gt;“最好的” 这三个字可不是空穴来风，jieba 在开源社区的受欢迎程度非常之高。&lt;/p&gt;
+&lt;p&gt;jieba 项目目前的 github star 数已经达到 24k，其他热门分词组件像 HanLP star 数 20k、ansj_seg star 数 5.6k、pkuseg-python star 数 5k。可见 jieba 已经稳居中文分词领域 c 位。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://pic4.zhimg.com/v2-a46b69b27e9cdd27460ef7521de90de7_r.jpg&#34; alt=&#34;&#34;  /&gt;&lt;/p&gt;
+&lt;p&gt;jieba 的主要功能是做中文分词，可以进行简单分词、并行分词、命令行分词，当然它的功能不限于此，目前还支持关键词提取、词性标注、词位置查询等。&lt;/p&gt;
+&lt;p&gt;更让人愉悦的是 jieba 虽然立足于 python，但同样支持其他语言和平台，诸如：C++、Go、R、Rust、Node.js、PHP、 iOS、Android 等。所以 jieba 能满足各类开发者的需求。&lt;/p&gt;
+&lt;h2 id=&#34;2-如何学-jieba&#34;&gt;&lt;strong&gt;2. 如何学 jieba&lt;/strong&gt;&lt;/h2&gt;
+&lt;p&gt;据我所知，jieba 最靠谱的文档是 github 项目的 readme，因为它似乎还没有独立的使用文档。但由于使用起来简单，看 readme 也能快速上手。&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;&lt;a class=&#34;link&#34; href=&#34;https://github.com/fxsjy/jieba&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Jieba库的Github地址&lt;/a&gt;&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;国内各大博客有关于 jieba 的使用教程，但需要甄别下准确度和时效性，因为 jieba 项目一直在更新。&lt;/p&gt;
+&lt;p&gt;当然本文不是纯粹的种草文章，会简单介绍下 jieba 的使用方法。&lt;/p&gt;
+&lt;h2 id=&#34;3-安装-jieba&#34;&gt;&lt;strong&gt;3. 安装 jieba&lt;/strong&gt;&lt;/h2&gt;
+&lt;p&gt;jieba 支持&lt;code&gt;pip&lt;/code&gt;或者&lt;code&gt;conda&lt;/code&gt;安装，直接在命令行执行：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;pip install jieba
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;不出意外，应该能很快安装好。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://pic2.zhimg.com/v2-154d371fe8a4e1dd06829913b88c04a9_r.jpg&#34; alt=&#34;&#34;  /&gt;&lt;/p&gt;
+&lt;p&gt;你也可以下载 jieba 安装包再安装，jieba 的 pypi 地址：&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;&lt;a class=&#34;link&#34; href=&#34;http://pypi.python.org/pypi/jieba/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Pypi地址&lt;/a&gt;&lt;/em&gt;&lt;/p&gt;
+&lt;h2 id=&#34;4-分词初体验&#34;&gt;&lt;strong&gt;4. 分词初体验&lt;/strong&gt;&lt;/h2&gt;
+&lt;p&gt;分词是 NLP 处理的第一步，也是最基本的任务，分词的好坏直接决定了后面语义分析的精准度。&lt;/p&gt;
+&lt;p&gt;所谓分词就是将一段表述里的词汇进行分解，比如 “我爱中国”，分解后有三个词：我、爱、中国，词性分别是名词、动词、名词。&lt;/p&gt;
+&lt;p&gt;jieba 库中用于分词的方法有三个：&lt;/p&gt;
+&lt;h3 id=&#34;jiebacut&#34;&gt;&lt;strong&gt;jieba.cut&lt;/strong&gt;&lt;/h3&gt;
+&lt;p&gt;给定中文字符串，分解后返回一个迭代器，需要用 for 循环访问。&lt;/p&gt;
+&lt;p&gt;参数解释：&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;「strs」&lt;/strong&gt;： 需要分词的字符串；&lt;br&gt;
+&lt;strong&gt;「cut_all」&lt;/strong&gt;：用来控制是否采用全模式；&lt;br&gt;
+&lt;strong&gt;「HMM」&lt;/strong&gt;：用来控制是否使用 HMM 模型；&lt;br&gt;
+&lt;strong&gt;「use_paddle」&lt;/strong&gt;：用来控制是否使用 paddle 模式下的分词模式，paddle 模式采用延迟加载方式，通过 enable_paddle 接口安装 paddlepaddle-tiny，并且 import 相关代码；&lt;/p&gt;
+&lt;p&gt;这里区分全模式和精确模式，举个例子先看看区别：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;# 全模式
+seg_list = jieba.cut(&amp;quot;中国上海是一座美丽的国际性大都市&amp;quot;, cut_all=True)
+print(&amp;quot;Full Mode: &amp;quot; + &amp;quot;/ &amp;quot;.join(seg_list))  
+
+# 返回结果
+Full Mode: 中国/ 上海/ 是/ 一座/ 美丽/ 的/ 国际/ 国际性/ 大都/ 大都市/ 都市
+
+# 精确模式
+seg_list = jieba.cut(&amp;quot;中国上海是一座美丽的国际性大都市&amp;quot;, cut_all=False)
+print(&amp;quot;Full Mode: &amp;quot; + &amp;quot;/ &amp;quot;.join(seg_list))  
+
+# 返回结果
+Default Mode: 中国/ 上海/ 是/ 一座/ 美丽/ 的/ 国际性/ 大都市
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;可以看到，全模式把句子中所有的可以成词的词语都扫描出来, 会出现一词多用、一词多意。精确模式将句子最精确的切分开，每个词都只有一种含义。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;jieba.cut&lt;/code&gt;方法默认是精确模式。&lt;/p&gt;
+&lt;p&gt;还有一个参数控制 paddle 模式，会更加精确，使用这个的前提是你需要先安装 paddlepaddle-tiny。&lt;/p&gt;
+&lt;p&gt;安装命令：&lt;br&gt;
+&lt;code&gt;pip install paddlepaddle-tiny==1.6.1&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;详情可以去官网看下，这里不举例。&lt;/p&gt;
+&lt;h3 id=&#34;jiebacut_for_search&#34;&gt;&lt;strong&gt;jieba.cut_for_search&lt;/strong&gt;&lt;/h3&gt;
+&lt;p&gt;该方法和 cut 一样，分解后返回一个迭代器，需要用 for 循环访问。不过它是搜索引擎模式，在精确模式的基础上，对长词再次切分，提高召回率，适合用于搜索引擎分词。&lt;/p&gt;
+&lt;p&gt;参数解释：&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;「strs」&lt;/strong&gt;：需要分词的字符串；&lt;br&gt;
+&lt;strong&gt;「HMM」&lt;/strong&gt;：是否使用 HMM 模型，默认值为 True。该方法适合用于搜索引擎构建倒排索引的分词，粒度比较细。&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;# 搜索引擎模式
+seg_list = jieba.cut_for_search(&amp;quot;中国上海是一座美丽的国际性大都市，拥有复旦大学、上海交通大学等知名高等学府&amp;quot;)  
+print(&amp;quot;, &amp;quot;.join(seg_list))
+
+# 返回结果
+Search Mode: 中国, 上海, 是, 一座, 美丽, 的, 国际, 国际性, 大都, 都市, 大都市, ，, 拥有, 复旦, 大学, 复旦大学, 、, 上海, 交通, 大学, 上海交通大学, 等, 知名, 高等, 学府, 高等学府
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;jiebalcut&#34;&gt;&lt;strong&gt;jieba.lcut&lt;/strong&gt;&lt;/h3&gt;
+&lt;p&gt;和&lt;code&gt;jieba.cut&lt;/code&gt;使用方法一样，不过返回的是列表。&lt;/p&gt;
+&lt;p&gt;cut 和 cut_for_search 方法都是支持繁体字的。&lt;/p&gt;
+&lt;h2 id=&#34;5-添加自定义词典&#34;&gt;&lt;strong&gt;5. 添加自定义词典&lt;/strong&gt;&lt;/h2&gt;
+&lt;p&gt;如果是对专业新闻或者小说进行分词，会有很多的新词汇，jieba 库里没有就没办法识别，那么就需要添加自定义的词汇，比如：奥利给。&lt;/p&gt;
+&lt;p&gt;添加自定义词汇的方法： &lt;code&gt;jieba.load_userdict(file_name)&lt;/code&gt; 参数是文本文件，txt、csv 都可以。&lt;/p&gt;
+&lt;p&gt;自定义词典文件的词汇格式是一个词占一行，每一行分三部分：词语、词频（可省略）、词性（可省略），用空格隔开，顺序不可颠倒。 比如：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://pic3.zhimg.com/v2-006e9b57a6f284ddce4f14314b8caa7a_b.jpg&#34; alt=&#34;&#34;  /&gt;&lt;/p&gt;
+&lt;p&gt;以 &amp;ldquo;奥利给，管虎执导的八佰是一部让人热血沸腾的好电影。&amp;rdquo; 这段话为例， 如果不添加自定义词典，很多词没办法识别出来。&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;# 不添加自定义词典
+seg_list = jieba.cut(&amp;quot;奥利给，管虎执导的八佰是一部让人热血沸腾的好电影&amp;quot;)
+print(&amp;quot;/ &amp;quot;.join(seg_list))  
+
+# 返回结果
+奥利/ 给/ ，/ 管虎/ 执导/ 的/ 八佰是/ 一部/ 让/ 人/ 热血沸腾/ 的/ 好/ 电影
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;添加自定义词典后，新词、人名、电影名都可以识别出来&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;# 载入词典
+jieba.load_userdict(&amp;quot;dict.txt&amp;quot;)
+seg_list = jieba.cut(&amp;quot;奥利给，管虎执导的八佰是一部让人热血沸腾的好电影&amp;quot;)
+print(&amp;quot;/ &amp;quot;.join(seg_list))  
+
+# 返回结果
+奥利给/ ，/ 管虎/ 执导/ 的/ 八佰/ 是/ 一部/ 让/ 人/ 热血沸腾/ 的/ 好/ 电影
+&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;6-结论&#34;&gt;&lt;strong&gt;6. 结论&lt;/strong&gt;&lt;/h2&gt;
+&lt;p&gt;jieba 无疑是一款优秀的分词工具，而且在不断地优化成长。前面讲了一些基本的使用，大家还可以尝试使用停用词、提取关键词、词性标注、词位置查询等功能，也是十分的便捷。&lt;/p&gt;</description>
+        </item>
+        <item>
+        <title>散学以后</title>
+        <link>https://hugo.nikoblog.top/post/%E6%95%A3%E5%AD%A6%E4%BB%A5%E5%90%8E/</link>
+        <pubDate>Thu, 06 Jan 2022 12:23:55 +0000</pubDate>
+        
+        <guid>https://hugo.nikoblog.top/post/%E6%95%A3%E5%AD%A6%E4%BB%A5%E5%90%8E/</guid>
+        <description>&lt;p&gt;花费一学期的时间，学习的知识，在两天内用尽心血在一张试卷上呈现，说起来有点夸张，但确是这样。&lt;/p&gt;
+&lt;p&gt;在2022年1月6日，我们数学考试结束后，全班都仿佛一锅烧开的热水，沸腾了。&lt;/p&gt;
+&lt;p&gt;听到那一声悦耳放学铃，我冲出教室，“畏罪潜逃”。冲进了学校附近的Mixue Ice Cream。&lt;/p&gt;
+&lt;p&gt;喝着新鲜的柠檬水，看着书，好不痛快。
+过了一会，几乎全班人都到了。
+全是人。好挤。😑
+有什么办法？忍吧。忍忍就过去了。&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>博客公告</title>
+        <link>https://hugo.nikoblog.top/post/%E5%8D%9A%E5%AE%A2%E5%85%AC%E5%91%8A/</link>
+        <pubDate>Sun, 02 Jan 2022 19:43:28 +0000</pubDate>
+        
+        <guid>https://hugo.nikoblog.top/post/%E5%8D%9A%E5%AE%A2%E5%85%AC%E5%91%8A/</guid>
+        <description>&lt;h1 id=&#34;updated-blog-at-20220124-1456&#34;&gt;Updated Blog at 2022/01/24 14:56&lt;/h1&gt;
+&lt;p&gt;终于发现了以前博客为什么加载那么慢了，原来是&lt;code&gt;圆角&lt;/code&gt;！
+文章的透明效果也是因为以前没认真看教程，以为会遮挡背景(本博客是根据Akilar的“每页都使用不同的自定义的背景”方案)。现在好了。&lt;/p&gt;
+&lt;p&gt;本次更新主要优化了性能、美化了界面，也更新了我的大脑。“我以后再也不美化啦！”
+图片？想多了。现在你们看到的不就是吗？反正我以后不会改了……&lt;/p&gt;
+&lt;h1 id=&#34;updated-blog-at-2022114-2141&#34;&gt;Updated Blog at 2022/1/14 21:41&lt;/h1&gt;
+&lt;p&gt;本次更新更换了网站主题，由&lt;strong&gt;Next&lt;/strong&gt;转为&lt;strong&gt;Butterfly&lt;/strong&gt;
+{% btn &amp;lsquo;&lt;a class=&#34;link&#34; href=&#34;https://gitee.com/immyw/hexo-theme-butterfly%27,Butterfly&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://gitee.com/immyw/hexo-theme-butterfly&#39;,Butterfly&lt;/a&gt;主题Gitee地址,far fa-hand-point-right,blue larger,outline %}&lt;/p&gt;
+&lt;h2 id=&#34;更新日志&#34;&gt;更新日志&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;优化博客访问速度，减少插件使用，尽量轻度搭建。&lt;/li&gt;
+&lt;li&gt;添加Live2d-Widget升级互动版看板娘(不是插件!)，美化一下嘛~&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img src=&#34;https://hugo.nikoblog.top/n.webp&#34; alt=&#34;看板娘&#34;  /&gt;&lt;/p&gt;
+&lt;ol start=&#34;3&#34;&gt;
+&lt;li&gt;添加吸底Aplayer音乐播放器，歌单为网易云歌单 &amp;lsquo;清华自习室 / 学习处方&amp;rsquo; ，持续跟进。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img src=&#34;https://hugo.nikoblog.top/a.webp&#34; alt=&#34;Aplayer&#34;  /&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;添加双评论系统,&lt;strong&gt;Gitalk&lt;/strong&gt;和&lt;strong&gt;Twikoo&lt;/strong&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img src=&#34;https://hugo.nikoblog.top/desktop.webp&#34; alt=&#34;Twikoo&#34;  /&gt;&lt;/p&gt;
+&lt;ol start=&#34;5&#34;&gt;
+&lt;li&gt;添加在线聊天系统{%label TiDio blue%}，恶搞翻译。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img src=&#34;https://hugo.nikoblog.top/gan.webp&#34; alt=&#34;TiDio&#34;  /&gt;&lt;/p&gt;
+&lt;h2 id=&#34;各个页面展示&#34;&gt;各个页面展示&lt;/h2&gt;
+&lt;p&gt;&lt;img src=&#34;https://hugo.nikoblog.top/jie.webp&#34; alt=&#34;主页&#34;  /&gt;
+&lt;img src=&#34;https://hugo.nikoblog.top/ye.webp&#34; alt=&#34;友链页&#34;  /&gt;
+&lt;img src=&#34;https://hugo.nikoblog.top/l.webp&#34; alt=&#34;相册(图床)&#34;  /&gt;&lt;/p&gt;
+&lt;h3 id=&#34;欢迎来到我的博客&#34;&gt;欢迎来到我的博客&lt;/h3&gt;
+&lt;p&gt;{% btn &amp;lsquo;&lt;a class=&#34;link&#34; href=&#34;https://niko-karen.gtihub.io&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://niko-karen.gtihub.io&lt;/a&gt;&amp;rsquo;,我的博客,far fa-hand-point-right,orange larger,outline %}&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>一日奇遇</title>
+        <link>https://hugo.nikoblog.top/post/%E4%B8%80%E6%97%A5%E5%A5%87%E9%81%87/</link>
+        <pubDate>Sun, 14 Nov 2021 16:20:22 +0000</pubDate>
+        
+        <guid>https://hugo.nikoblog.top/post/%E4%B8%80%E6%97%A5%E5%A5%87%E9%81%87/</guid>
+        <description>&lt;p&gt;{% note red &amp;lsquo;fas fa-exclamation-circle&amp;rsquo; %}
+这篇文章是初建博客时写的，文笔稚嫩，还没写完，吾会尽力完成。
+另外，文中的图书馆现在已经成为旧图书馆。
+{% endnote %}&lt;/p&gt;
+&lt;p&gt;前文P.S : 这篇文章巨多灾难，第一次被覆盖，第二次被删除。难受 :(&lt;/p&gt;
+&lt;p&gt;在星期六的一个万里乌云、阳光明媚、晴空万里的日子里，本该安安稳稳地在家辛苦码字，但&lt;code&gt;学习&lt;/code&gt;的欲望提醒了我。经过一番认真的整理后，我踏上了{%del 战场%}。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://hugo.nikoblog.top/%e4%b8%80%e6%97%a5%e5%a5%87%e9%81%87%5cj.webp&#34; alt=&#34;旧图书馆&#34;  /&gt;&lt;/p&gt;
+&lt;p&gt;到达图书馆，但又未完全到达。因为疫情还很严重，我还需经过层层关卡、过五关斩六将，才能真正{%del 救出公主%}进入内，更何况现在是假日，有很多人和我们一样，也在排队扫码。
+十分钟后，我扫完码入内后，首先冲的是少儿馆，{% psw 其实我是去看成人馆， %}先进去还书。走进去之前，还要登记信息，那我就上吧……
+&amp;ldquo;我要{% psw 强奸 %}你!&amp;ldquo;一个女声，对另一个女生说。这可把我吓得……咋俩女的还说这话，心脏病都要出来了。&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>思</title>
+        <link>https://hugo.nikoblog.top/post/%E6%80%9D/</link>
+        <pubDate>Fri, 12 Nov 2021 18:09:42 +0000</pubDate>
+        
+        <guid>https://hugo.nikoblog.top/post/%E6%80%9D/</guid>
+        <description>&lt;h2 id=&#34;1前言&#34;&gt;1.前言&lt;/h2&gt;
+&lt;p&gt;​	今天我放学回家时看到了许多令我个人感受良深的事物&lt;/p&gt;
+&lt;p&gt;​	可能因为我是个男生，许多人认为我不在意这些花花草草，实际上我表面上是这样，但&amp;hellip;&amp;hellip;&lt;/p&gt;
+&lt;p&gt;​	我很关心那些可怜的事物。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;2事例&#34;&gt;2.事例&lt;/h2&gt;
+&lt;p&gt;​		(1)  每次家里来了爷爷奶奶养的鸡或鸭时，我都格外在意它们，甚至夜深人静时都去看它们，生怕它们哪天被**了。在这不久前，就来了一只鸡和鸭，它们都只存在了两天，在我去上课一段时间内，它们已成为了桌上菜。我心有余悸，在那次，我掩藏了十二年的心性被知道了，自那以后，我爸妈都知道了我不是冷血动物。&lt;/p&gt;
+&lt;p&gt;​		(2)  在某一年的暑假期间，我去了一趟北京，在逛街时，我看到了一位双腿截肢的老婆婆，她匍匐在推车上，用一块木板写上了向人乞讨的话语，但是没有一个人愿意施舍几枚硬币让她吃顿饱饭，仅仅只是将它看成了一位无用的过路人，冷眼旁观。只有我一个人一直看着她，看着她缓慢地，艰难地用手推着车走。我没有能力帮助她，我也没有胆量向其他人请求、向父母请求几元钱帮助她。我先天懦弱，很好强，无法在他人面前露出本性。&lt;/p&gt;
+&lt;p&gt;​		(3)  在今天，我看到了一只全身黑毛的流浪猫，我望着它，它也望着我，我俩对视了一分钟，后来，我实在忍受不了，疾步跑回了家，在我的密码日记本上，写上了一句话，并牢记在心，永远。&lt;/p&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;3最后&#34;&gt;3.最后&lt;/h2&gt;
+&lt;p&gt;​	最终到了六年级时，我才不那么懦弱、无能，也能释放心中的压力了。&lt;/p&gt;
+&lt;p&gt;​	这是我第一次将这些事公之于众，同时也释放了在心中压了十二年的大石，得以释然。&lt;/p&gt;</description>
+        </item>
+        <item>
+        <title>我的旅行日记</title>
+        <link>https://hugo.nikoblog.top/post/%E6%88%91%E7%9A%84%E6%97%85%E8%A1%8C%E6%97%A5%E8%AE%B0/</link>
+        <pubDate>Sat, 02 Oct 2021 20:50:43 +0000</pubDate>
+        
+        <guid>https://hugo.nikoblog.top/post/%E6%88%91%E7%9A%84%E6%97%85%E8%A1%8C%E6%97%A5%E8%AE%B0/</guid>
+        <description>&lt;h1 id=&#34;增城一行&#34;&gt;&lt;strong&gt;增城一行&lt;/strong&gt;&lt;/h1&gt;
+&lt;p&gt;就在昨天,我们到了我的外婆家&amp;mdash;&amp;ndash;增城.&lt;/p&gt;
+&lt;p&gt;那是一个美丽的地方,但总有些美中不足.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://hugo.nikoblog.top/zeng.webp&#34; alt=&#34;&#34;  /&gt;&lt;/p&gt;
+&lt;h2 id=&#34;bad-side&#34;&gt;Bad Side&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;到处乱装修.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;为什么这样说? 主要还是因为附近总有新房子,别墅当初都是,导致房地产中介赚的盆满钵满。&lt;/p&gt;
+&lt;ol start=&#34;2&#34;&gt;
+&lt;li&gt;过于现代&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;嗯? 现代不好吗? 并不是这么说,而只是我不太喜欢过于喧闹的生活，我更喜欢诗歌中的那种隐居生活，这也像我的性格:不太爱说话。&lt;/p&gt;
+&lt;h2 id=&#34;good-side&#34;&gt;Good Side&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;足够方便,便利&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;嗯.这确实是增城的优点,也是增城的优势。
+因为现代所以便利。因为便利所以繁荣。&lt;/p&gt;
+&lt;ol start=&#34;2&#34;&gt;
+&lt;li&gt;美丽&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;就像图片那样，我也见到了这花木繁茂、蓝天白云的增城，这是足以让人心神向往的，如果只是这张图片，还不足以表现增城的美。当然，以我那差得不得了的写作水平描写不出，大家可以自己去看看。&lt;/p&gt;</description>
+        </item>
+        <item>
+        <title>Python Selenium自动化详解</title>
+        <link>https://hugo.nikoblog.top/post/python-selenium%E8%87%AA%E5%8A%A8%E5%8C%96%E8%AF%A6%E8%A7%A3/</link>
+        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+        
+        <guid>https://hugo.nikoblog.top/post/python-selenium%E8%87%AA%E5%8A%A8%E5%8C%96%E8%AF%A6%E8%A7%A3/</guid>
+        <description>&lt;p&gt;Selenium，Python的浏览器自动化大佬库，称霸Python&lt;strong&gt;浏览器&lt;/strong&gt;自动化领域。
+作为萌新的我，当然要先学习这个既简单又困难的库。&lt;/p&gt;
+&lt;p&gt;注意，阅读本文需要有亿点点前端知识才容易理解。要是大佬看到了不会冒犯到吧，不会吧……&lt;/p&gt;
+&lt;h2 id=&#34;安装-selenium-包&#34;&gt;安装 Selenium 包&lt;/h2&gt;
+&lt;h3 id=&#34;pip-安装&#34;&gt;Pip 安装&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;sudo pip install selenium
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;源码包安装&#34;&gt;源码包安装&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;sudo python setup.py install
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;安装-对应浏览器的-webdriver&#34;&gt;安装 对应浏览器的 &lt;strong&gt;WebDriver&lt;/strong&gt;&lt;/h2&gt;
+&lt;p&gt;Edge: &lt;a class=&#34;link&#34; href=&#34;https://developer.microsoft.com/en-us/microsoft-edge/tools/webdriver/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://developer.microsoft.com/en-us/microsoft-edge/tools/webdriver/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Chrome (淘宝源) : &lt;a class=&#34;link&#34; href=&#34;https://npm.taobao.org/mirrors/chromedriver/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://npm.taobao.org/mirrors/chromedriver/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Firefox:  &lt;a class=&#34;link&#34; href=&#34;https://github.com/mozilla/geckodriver/releases/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://github.com/mozilla/geckodriver/releases/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;IE: &lt;a class=&#34;link&#34; href=&#34;http://selenium-release.storage.googleapis.com/index.html?&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;http://selenium-release.storage.googleapis.com/index.html?&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;Edge&lt;/code&gt;：对应浏览器对应版本，对应下载。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;Chrome&lt;/code&gt;: 注意，先在设置 &amp;ndash;&amp;gt; 关于Chrome 里查看Chrome版本号,再去我给的淘宝源里找。再注意，在淘宝源里找版本时，如果没有本浏览器的版本的话，就找自己版本号的&lt;strong&gt;上一个&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;Firefox&lt;/code&gt;: 选择自己系统版本下载对应的。{%del 我不用火狐，报错别怪我 (弱小.jpeg)&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;IE&lt;/code&gt;: 这我没啥注释，但建议IE11用&lt;strong&gt;用2.5版本&lt;/strong&gt;就好。(这年头还有人用IE?可怕可怕。)&lt;/p&gt;
+&lt;p&gt;下载解压后把文件放在Python目录下的Scripts目录中，别问为啥，问就是懒得加&lt;strong&gt;环境变量&lt;/strong&gt;。Linux的可以放在&lt;code&gt;/usr/bin&lt;/code&gt;下。&lt;/p&gt;
+&lt;h2 id=&#34;开始&#34;&gt;开始！&lt;/h2&gt;
+&lt;p&gt;废话忒多了，进入正题。&lt;/p&gt;
+&lt;h3 id=&#34;基础&#34;&gt;基础&lt;/h3&gt;
+&lt;p&gt;咱为啥要用Selenium，就是可以爬到普通爬虫爬不到的东东，用Selenium，更方便、更快捷、更显逼格！(打广告)&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span class=&#34;kn&#34;&gt;from&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;selenium&lt;/span&gt; &lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;webdriver&lt;/span&gt;
+
+&lt;span class=&#34;n&#34;&gt;driver&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;webdriver&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Chrome&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;#按照你的浏览器来，就上面那几种&lt;/span&gt;
+&lt;span class=&#34;n&#34;&gt;driver&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;get&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;https://bing.com&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;#对应浏览器打开Bing标签页&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;大概会看到这样:
+![](&amp;lsquo;Python Selenium自动化详解\dri.webp&amp;rsquo;)&lt;/p&gt;
+&lt;p&gt;如何&lt;strong&gt;往输入框内填入文字&lt;/strong&gt;并&lt;strong&gt;点击搜索按钮进行搜索&lt;/strong&gt;？
+Very Easy.&lt;/p&gt;
+&lt;p&gt;不要动你那个界面，打开&lt;strong&gt;DevTools&lt;/strong&gt;，找到搜索框的元素，{% kbd 右键%} - {% kbd Copy %} - {% kbd CopyXpath %}，再回到代码这。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span class=&#34;kn&#34;&gt;from&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;selenium&lt;/span&gt; &lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;webdriver&lt;/span&gt;
+
+&lt;span class=&#34;n&#34;&gt;driver&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;webdriver&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Chrome&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;#按照你的浏览器来，就上面那几种&lt;/span&gt;
+&lt;span class=&#34;n&#34;&gt;driver&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;get&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;https://bing.com&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;#对应浏览器打开Bing标签页&lt;/span&gt;
+
+&lt;span class=&#34;n&#34;&gt;input_table&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;driver&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;find_element_by_xpath&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;你Copy的值&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;#请原谅我那糟糕的命名。&lt;/span&gt;
+&lt;span class=&#34;n&#34;&gt;input_table&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;send_keys&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;梁非凡&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# 你想输入啥？&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;注意，&lt;code&gt;find_element_by_xpath&lt;/code&gt;这个函数很微妙，它的工作是在整个页面找&lt;strong&gt;一个&lt;/strong&gt;元素，敲黑板，是&lt;strong&gt;一个&lt;/strong&gt;。还有一个函数是&lt;code&gt;find_elements_by_xpath&lt;/code&gt;，找的是一堆元素。很多手残的会多敲个s，找了半天的bug。&lt;/p&gt;
+&lt;p&gt;运行。&lt;/p&gt;
+&lt;p&gt;可以看到，输入框里输入了&lt;strong&gt;梁非凡&lt;/strong&gt;，接着干。
+按照上次那样，打开Devtools，找到&lt;strong&gt;搜索按钮的元素&lt;/strong&gt;,接着Copy &amp;ndash;&amp;gt; Copy Xpath。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span class=&#34;kn&#34;&gt;from&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;selenium&lt;/span&gt; &lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;webdriver&lt;/span&gt;
+
+&lt;span class=&#34;n&#34;&gt;driver&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;webdriver&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Chrome&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;#按照你的浏览器来，就上面那几种&lt;/span&gt;
+&lt;span class=&#34;n&#34;&gt;driver&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;get&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;https://bing.com&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;#对应浏览器打开Bing标签页&lt;/span&gt;
+
+&lt;span class=&#34;n&#34;&gt;input_table&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;driver&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;find_element_by_xpath&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;你Copy的值&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;#请原谅我那糟糕的命名。&lt;/span&gt;
+&lt;span class=&#34;n&#34;&gt;input_table&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;send_keys&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;梁非凡&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# 你想输入啥？&lt;/span&gt;
+
+&lt;span class=&#34;n&#34;&gt;search_btn&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;driver&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;find_element_by_xpath&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;Copy Value&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;span class=&#34;n&#34;&gt;search_btn&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;click&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;运行。
+搞定！&lt;/p&gt;
+&lt;p&gt;还有一种方法，将&lt;code&gt;click()&lt;/code&gt;换成&lt;code&gt;submit()&lt;/code&gt;，或是Webdriver模拟用户点击按键&lt;code&gt;Enter&lt;/code&gt;进行搜索。进阶会讲。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://hugo.nikoblog.top/post/PythonSelenium%e8%87%aa%e5%8a%a8%e5%8c%96%e8%af%a6%e8%a7%a3/over.webp&#34; alt=&#34;&#34;  /&gt;&lt;/p&gt;
+&lt;h2 id=&#34;进阶&#34;&gt;进阶&lt;/h2&gt;
+&lt;p&gt;学了总要运用，搞个爬虫实例&lt;/p&gt;
+&lt;h3 id=&#34;实战&#34;&gt;实战:&lt;/h3&gt;
+</description>
+        </item>
+        
+    </channel>
+</rss>

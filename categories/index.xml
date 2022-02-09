@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Categories on ニコのブログ</title>
+    <link>https://hugo.nikoblog.top/categories/</link>
+    <description>Recent content in Categories on ニコのブログ</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 29 Jan 2022 09:29:42 +0000</lastBuildDate><atom:link href="https://hugo.nikoblog.top/categories/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>🛫万年鲲鹏号</title>
+      <link>https://hugo.nikoblog.top/categories/%E4%B8%87%E5%B9%B4%E9%B2%B2%E9%B9%8F%E5%8F%B7/</link>
+      <pubDate>Sat, 29 Jan 2022 09:29:42 +0000</pubDate>
+      
+      <guid>https://hugo.nikoblog.top/categories/%E4%B8%87%E5%B9%B4%E9%B2%B2%E9%B9%8F%E5%8F%B7/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>🚁无限边疆号</title>
+      <link>https://hugo.nikoblog.top/categories/%E6%97%A0%E9%99%90%E8%BE%B9%E7%96%86%E5%8F%B7/</link>
+      <pubDate>Mon, 24 Jan 2022 15:02:44 +0000</pubDate>
+      
+      <guid>https://hugo.nikoblog.top/categories/%E6%97%A0%E9%99%90%E8%BE%B9%E7%96%86%E5%8F%B7/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>✈️自然选择号</title>
+      <link>https://hugo.nikoblog.top/categories/%EF%B8%8F%E8%87%AA%E7%84%B6%E9%80%89%E6%8B%A9%E5%8F%B7/</link>
+      <pubDate>Fri, 21 Jan 2022 13:36:39 +0000</pubDate>
+      
+      <guid>https://hugo.nikoblog.top/categories/%EF%B8%8F%E8%87%AA%E7%84%B6%E9%80%89%E6%8B%A9%E5%8F%B7/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>🛸青铜时代号</title>
+      <link>https://hugo.nikoblog.top/categories/%E9%9D%92%E9%93%9C%E6%97%B6%E4%BB%A3%E5%8F%B7/</link>
+      <pubDate>Wed, 19 Jan 2022 19:55:32 +0000</pubDate>
+      
+      <guid>https://hugo.nikoblog.top/categories/%E9%9D%92%E9%93%9C%E6%97%B6%E4%BB%A3%E5%8F%B7/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>🛩️蓝色空间号</title>
+      <link>https://hugo.nikoblog.top/categories/%EF%B8%8F%E8%93%9D%E8%89%B2%E7%A9%BA%E9%97%B4%E5%8F%B7/</link>
+      <pubDate>Wed, 19 Jan 2022 11:11:48 +0000</pubDate>
+      
+      <guid>https://hugo.nikoblog.top/categories/%EF%B8%8F%E8%93%9D%E8%89%B2%E7%A9%BA%E9%97%B4%E5%8F%B7/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>🪁哥伦比亚号</title>
+      <link>https://hugo.nikoblog.top/categories/%E5%93%A5%E4%BC%A6%E6%AF%94%E4%BA%9A%E5%8F%B7/</link>
+      <pubDate>Thu, 06 Jan 2022 12:23:55 +0000</pubDate>
+      
+      <guid>https://hugo.nikoblog.top/categories/%E5%93%A5%E4%BC%A6%E6%AF%94%E4%BA%9A%E5%8F%B7/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Test</title>
+      <link>https://hugo.nikoblog.top/categories/test/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://hugo.nikoblog.top/categories/test/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

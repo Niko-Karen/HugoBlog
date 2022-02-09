@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>🐍Python on ニコのブログ</title>
+    <link>https://hugo.nikoblog.top/tags/python/</link>
+    <description>Recent content in 🐍Python on ニコのブログ</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 17 Jan 2022 20:00:03 +0000</lastBuildDate><atom:link href="https://hugo.nikoblog.top/tags/python/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Python-Requests</title>
+      <link>https://hugo.nikoblog.top/post/python-requests/</link>
+      <pubDate>Mon, 17 Jan 2022 20:00:03 +0000</pubDate>
+      
+      <guid>https://hugo.nikoblog.top/post/python-requests/</guid>
+      <description>{% note red &amp;ldquo;fas fa-language&amp;rdquo; %} 本教程使用Python语言，需提前安装Pip3 or Pip，例如Linux类的，请在命令行内输入: {% codeblock lang:shell %} sudo apt install python3-pip {% endcodeblock %} {% endnote %}
+安装 {% tabs 安装,-1 %}
+一条命令(临时换源): {% codeblock lang:shell %} sudo pip install requests -i https://mirrors.aliyun.com/pypi/simple/ {% endcodeblock %}
+Pypi包源官网: Requests 在这可以看到有关这个第三方库的一切。
+另一个就是PIP命令行安装，很简单，一条命令。
+{% note purple &amp;ldquo;fas fa-info&amp;rdquo; %} 由于包源在国外，所以访问速度感人，可以先Pip换源，再试。(后面说) {% endnote %}
+{% codeblock lang:shell %} pip install requests {% endcodeblock %}
+加速(阿里云): {% codeblock lang:shell %}pip config set global.</description>
+    </item>
+    
+    <item>
+      <title>New Product -- 网易云下载播放器</title>
+      <link>https://hugo.nikoblog.top/post/new-product-%E7%BD%91%E6%98%93%E4%BA%91%E4%B8%8B%E8%BD%BD%E6%92%AD%E6%94%BE%E5%99%A8/</link>
+      <pubDate>Mon, 10 Jan 2022 14:54:31 +0000</pubDate>
+      
+      <guid>https://hugo.nikoblog.top/post/new-product-%E7%BD%91%E6%98%93%E4%BA%91%E4%B8%8B%E8%BD%BD%E6%92%AD%E6%94%BE%E5%99%A8/</guid>
+      <description>&lt;p&gt;昨天翻了下写过的博文，其中有一篇是写&lt;a class=&#34;link&#34; href=&#34;http://localhost:4000/posts/2118472832/&#34;  title=&#34;文章&#34;
+     target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;网易云直链&lt;/a&gt;的，看着看着，一个邪恶的想法油然而生&amp;hellip;&amp;hellip;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Python Jieba库</title>
+      <link>https://hugo.nikoblog.top/post/python-jieba%E5%BA%93/</link>
+      <pubDate>Thu, 06 Jan 2022 13:11:13 +0000</pubDate>
+      
+      <guid>https://hugo.nikoblog.top/post/python-jieba%E5%BA%93/</guid>
+      <description>&lt;h2 id=&#34;1-jieba-的江湖地位&#34;&gt;&lt;strong&gt;1. jieba 的江湖地位&lt;/strong&gt;&lt;/h2&gt;
+&lt;p&gt;NLP（自然语言）领域现在可谓是群雄纷争，各种开源组件层出不穷，其中一支不可忽视的力量便是 jieba 分词，号称要做最好的 Python 中文分词组件。&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

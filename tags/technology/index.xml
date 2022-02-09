@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>📡Technology on ニコのブログ</title>
+    <link>https://hugo.nikoblog.top/tags/technology/</link>
+    <description>Recent content in 📡Technology on ニコのブログ</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 06 Jan 2022 19:05:06 +0000</lastBuildDate><atom:link href="https://hugo.nikoblog.top/tags/technology/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>网易云音乐直链</title>
+      <link>https://hugo.nikoblog.top/post/%E7%BD%91%E6%98%93%E4%BA%91%E9%9F%B3%E4%B9%90%E7%9B%B4%E9%93%BE/</link>
+      <pubDate>Thu, 06 Jan 2022 19:05:06 +0000</pubDate>
+      
+      <guid>https://hugo.nikoblog.top/post/%E7%BD%91%E6%98%93%E4%BA%91%E9%9F%B3%E4%B9%90%E7%9B%B4%E9%93%BE/</guid>
+      <description>&lt;p&gt;网易云音乐有很多方法可以获取直链，但这些方法要么很快失效，要么有缓存时间。&lt;/p&gt;
+&lt;p&gt;以下提供的方法简单、快捷并且直到现在依然可用。已经稳定几年了，网易云音乐外链用官方的就好。&lt;/p&gt;
+&lt;p&gt;（凡是网易云音乐可以正常试听的均可以直链，因为版权原因或其他原因无法试听的也无法外链。）&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

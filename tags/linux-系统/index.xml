@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>🐧Linux 系统 on ニコのブログ</title>
+    <link>https://hugo.nikoblog.top/tags/linux-%E7%B3%BB%E7%BB%9F/</link>
+    <description>Recent content in 🐧Linux 系统 on ニコのブログ</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 18 Jan 2022 11:17:51 +0000</lastBuildDate><atom:link href="https://hugo.nikoblog.top/tags/linux-%E7%B3%BB%E7%BB%9F/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>说说Linux</title>
+      <link>https://hugo.nikoblog.top/post/%E8%AF%B4%E8%AF%B4linux/</link>
+      <pubDate>Tue, 18 Jan 2022 11:17:51 +0000</pubDate>
+      
+      <guid>https://hugo.nikoblog.top/post/%E8%AF%B4%E8%AF%B4linux/</guid>
+      <description>{% note red &amp;lsquo;fas fa-exclamation-triangle&amp;rsquo; %} 本文会有很多主观意识的{% del 暴力语言 %}，如有不适，请吐槽，本人尽快更改。 {% endnote %}
+我用Linux也有很长时间了，有近三年了。在我9岁的时候，我第一次接触电脑就是用Ubuntu 18.04 LTS，当时图形界面已经很好看了，以至于现在我家的那台古董电脑还运行着Lubuntu 18.04 LTS (Ubuntu的分支版，LXDE桌面)。
+个人Linux使用史 { 主观 } 2018 那时我正在上网查资料，觉得Win7很丑、跟不上时代了，就想换个系统。当时在我们普通人眼中，只有一种系统:Windows，所以当时一搜 &amp;ldquo;重装系统&amp;rdquo; 就满屏是Windows的重装教程(我还不会自己重装)。
+我特无奈:&amp;ldquo;我的电脑装Win7已经有些撑不住了，还能来个Win8.1 ?Win10 ?&amp;ldquo;所以我再搜:&amp;ldquo;除Windows外的开源系统&amp;rdquo;，就出来个Linux,Unix。 &amp;ldquo;甚么是Linux? 甚么是Unix&amp;rdquo; 带着疑问，就尝试学习装了个最简单的Ubuntu。{% psw 差点就装上了Arch，装成了我估计要成仙。😅%}
+2019 自从我发现Linux这个大宝藏，就沉迷于此不可自拔，不停换系统:Ubuntu,Debian,Fedora,Centos&amp;hellip;&amp;hellip;甚至Arch都装上了。但有个大毛病，就是我装上后总嫌不好看，不停美化，把系统速度拉低又拉低，但好处既是我的命令行越来越熟，越来越快。
+2020 到了这个阶段，我可以自建Git服务器、博客服务器，运用git等工具&amp;hellip;&amp;hellip;巴拉巴拉很多技能都学习到了。其中激励我的大概都是我对计算机的热爱和痴迷，有了这些我才能步步高升，登上计算机的殿堂。
+Linux 发展史 { 客观 } 我对以前的Linux版本不熟，我主要了解的是内核版本4.5+至5.0+，平时使用的，也就这几个，曾经也自己编译内核自制小系统，叫{% label SimLinux orange %}，意思就是简单的Linux，功能也简单。就只有个Bash。
+{% note purple &amp;lsquo;fab fa-linux&amp;rsquo; simple %} 本人要不下次写个{%label 自己编译、制作Linux发行版教程 blue%}? 大家众议。 {% endnote %}
+跑题了，回到正题。
+2018 2018年的Linux已经非常不错了，当时的图形界面(除了图标)和现在竟没啥大变化。 {% psw 如果你美化了当我没说。 %}</description>
+    </item>
+    
+  </channel>
+</rss>
