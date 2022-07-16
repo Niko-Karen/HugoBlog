@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Pages on Niko&#39;s Blog</title>
+        <link>https://hugo.nikoblog.top/page/</link>
+        <description>Recent content in Pages on Niko&#39;s Blog</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>zh-cn</language>
+        <lastBuildDate>Mon, 03 Jan 2022 17:27:35 +0000</lastBuildDate><atom:link href="https://hugo.nikoblog.top/page/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>关于</title>
+        <link>https://hugo.nikoblog.top/%E5%85%B3%E4%BA%8E/</link>
+        <pubDate>Mon, 03 Jan 2022 17:27:35 +0000</pubDate>
+        
+        <guid>https://hugo.nikoblog.top/%E5%85%B3%E4%BA%8E/</guid>
+        <description>&lt;p&gt;{% blockquote 智子, 三体Ⅲ %}
+宇宙很大，生活更大。也许以后有缘再相见。
+{% endblockquote %}&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Niko&lt;/strong&gt; 出自CS:GO里的那个天才选手:波黑全能王，由于本人&lt;del&gt;极度喜爱&lt;/del&gt;，就盗了这个名字，一直沿用至今。&lt;del&gt;纯属胡扯，就是乱编的，没想到撞上了😓&lt;/del&gt;&lt;/p&gt;
+&lt;p&gt;05后一枚不务正业的小学生~~（超级宅男）~~，在广州上学。爱折腾，但没有实力折腾。&lt;/p&gt;
+&lt;p&gt;本人喜欢可爱的物品、可爱的女孩子、可爱的计算机。&lt;/p&gt;
+&lt;p&gt;感兴趣的: 前端、动漫、Python、宅、Linux
+追的动漫: &lt;a class=&#34;link&#34; href=&#34;https://bgm.tv/user/niko_karen&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Bangumis&lt;/a&gt;
+数码设备: 华硕 VivoBook 15（Intel Core i7-8550U、8G RAM）、iphone 7 Plus(128GB)
+玩的游戏：千恋·万花、美少女万华镜、Phigros、传送门、osu! ……
+曾经搞过的very small的项目：&lt;a class=&#34;link&#34; href=&#34;https://github.com/Niko-Karen/pyhitokoto&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;pyhitokoto&lt;/a&gt;、&lt;a class=&#34;link&#34; href=&#34;https://github.com/Niko-Karen/sys_vaccinecrud&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;sys_vaccinecrud&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;博客程序： Hexo 6.2.0
+博客主题: Maupassant by tufu9441 + 自改
+博客部署于Vercel，由DnsPod解析至&lt;a class=&#34;link&#34; href=&#34;www.nikoblog.top&#34; &gt;www.nikoblog.top&lt;/a&gt;域名，访问@将会解析到www。&lt;/p&gt;
+&lt;p&gt;目前有&lt;a class=&#34;link&#34; href=&#34;https://pan.nikoblog.top&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;网盘&lt;/a&gt;，由onedrive-vercel-index支持，后台为Onedrive 国际版E5开发者注册。
+有&lt;a class=&#34;link&#34; href=&#34;https://hugo.nikoblog.top&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Hugo站点&lt;/a&gt;，使用Stack主题，近期不会更新，未来可能会考虑迁移过去。（太累了不想折腾）
+有&lt;a class=&#34;link&#34; href=&#34;https://bbs.nikoblog.top/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;论坛BBS&lt;/a&gt;,使用FreeFlarum部署，有bug速度缓慢，仅做测试。&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://www.16personalities.com/ch/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;&lt;img src=&#34;https://hugo.nikoblog.top/about/person.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;人格类型 - ENFJ&#34;
+	
+	
+&gt;&lt;/a&gt;&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>Archives</title>
+        <link>https://hugo.nikoblog.top/archives/</link>
+        <pubDate>Tue, 28 May 2019 00:00:00 +0000</pubDate>
+        
+        <guid>https://hugo.nikoblog.top/archives/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Links</title>
+        <link>https://hugo.nikoblog.top/links/</link>
+        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+        
+        <guid>https://hugo.nikoblog.top/links/</guid>
+        <description>&lt;p&gt;To use this feature, add &lt;code&gt;links&lt;/code&gt; section to frontmatter.&lt;/p&gt;
+&lt;p&gt;This page&amp;rsquo;s frontmatter:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;9
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nt&#34;&gt;links&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;  &lt;/span&gt;- &lt;span class=&#34;nt&#34;&gt;title&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;l&#34;&gt;GitHub&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;description&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;l&#34;&gt;GitHub is the world&amp;#39;s largest software development platform.&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;website&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;l&#34;&gt;https://github.com&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;image&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;l&#34;&gt;https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;  &lt;/span&gt;- &lt;span class=&#34;nt&#34;&gt;title&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;l&#34;&gt;TypeScript&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;description&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;l&#34;&gt;TypeScript is a typed superset of JavaScript that compiles to plain JavaScript.&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;website&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;l&#34;&gt;https://www.typescriptlang.org&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;image&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;l&#34;&gt;ts-logo-128.jpg&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;&lt;code&gt;image&lt;/code&gt; field accepts both local and external images.&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>Search</title>
+        <link>https://hugo.nikoblog.top/search/</link>
+        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+        
+        <guid>https://hugo.nikoblog.top/search/</guid>
+        <description></description>
+        </item>
+        
+    </channel>
+</rss>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  
+  <sitemap>
+    <loc>https://hugo.nikoblog.top/en/sitemap.xml</loc>
+    
+  </sitemap>
+  
+  <sitemap>
+    <loc>https://hugo.nikoblog.top/zh-cn/sitemap.xml</loc>
+    
+      <lastmod>2022-07-07T19:03:49+00:00</lastmod>
+    
+  </sitemap>
+  
+  <sitemap>
+    <loc>https://hugo.nikoblog.top/ar/sitemap.xml</loc>
+    
+  </sitemap>
+  
+</sitemapindex>
